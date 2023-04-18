@@ -1,0 +1,25 @@
+﻿<Window x:Class="LogisticCompanyLO.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LogisticCompanyLO"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="CARAVELLA" Height="550" Width="1000">
+    <Grid Background="#d3d4ff">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Name="headerPage" Style="{StaticResource headerText}"></TextBlock>
+
+        <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Button Name="vehiclesPage" Content="Автомобили" Style="{StaticResource buttonMainWindow}" Click="vehiclesPage_Click"></Button>
+            <Button Name="executorsPage" Content="Исполнители" Style="{StaticResource buttonMainWindow}" Click="executorsPage_Click"></Button>
+        </WrapPanel>
+        
+        <Frame Grid.Row="1" Name="mainFrame" NavigationUIVisibility="Hidden"></Frame>
+    </Grid>
+</Window>

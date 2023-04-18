@@ -1,0 +1,387 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище DataBaseModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Additionally_Parameters">
+          <Key>
+            <PropertyRef Name="Code_Additionally_Parameter" />
+          </Key>
+          <Property Name="Code_Additionally_Parameter" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_Additionally_Parameter" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Category_Trailer">
+          <Key>
+            <PropertyRef Name="Code_Trailer" />
+          </Key>
+          <Property Name="Code_Trailer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_Trailer" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Download_Types">
+          <Key>
+            <PropertyRef Name="Code_Download_Type" />
+          </Key>
+          <Property Name="Code_Download_Type" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_Download_Type" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Executors">
+          <Key>
+            <PropertyRef Name="Code_Executor" />
+          </Key>
+          <Property Name="Code_Executor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_Executor" Type="nvarchar" MaxLength="51" />
+          <Property Name="Surname_Executor" Type="nvarchar" MaxLength="51" />
+          <Property Name="Midname_Executor" Type="nvarchar" MaxLength="51" />
+          <Property Name="Telephone_Executor" Type="nvarchar" MaxLength="25" />
+          <Property Name="Id_Ati" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Vehicles">
+          <Key>
+            <PropertyRef Name="Code_Vehicle" />
+          </Key>
+          <Property Name="Code_Vehicle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code_Executor" Type="int" />
+          <Property Name="Code_Category" Type="int" />
+          <Property Name="Brand_Vehicle" Type="nvarchar" MaxLength="21" />
+          <Property Name="Model_Vehicle" Type="nvarchar" MaxLength="21" />
+          <Property Name="Length_Vehicle" Type="real" />
+          <Property Name="Width_Vehicle" Type="real" />
+          <Property Name="Height_Vehicle" Type="real" />
+          <Property Name="Tonnage_Vehicle" Type="real" />
+          <Property Name="Volume_Vehicle" Type="real" />
+          <Property Name="Number_Vehicle" Type="nvarchar" MaxLength="10" />
+          <Property Name="Code_Download_Type" Type="int" />
+          <Property Name="Code_Additionally_Parameter" Type="int" />
+        </EntityType>
+        <Association Name="FK__Vehicles__Code_C__4D94879B">
+          <End Role="Category_Trailer" Type="Self.Category_Trailer" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category_Trailer">
+              <PropertyRef Name="Code_Trailer" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="Code_Category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vehicles__Code_E__4CA06362">
+          <End Role="Executors" Type="Self.Executors" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Executors">
+              <PropertyRef Name="Code_Executor" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="Code_Executor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vehicles_AdditionallyParameters">
+          <End Role="Additionally_Parameters" Type="Self.Additionally_Parameters" Multiplicity="0..1" />
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Additionally_Parameters">
+              <PropertyRef Name="Code_Additionally_Parameter" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="Code_Additionally_Parameter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vehicles_DownloadType">
+          <End Role="Download_Types" Type="Self.Download_Types" Multiplicity="0..1" />
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Download_Types">
+              <PropertyRef Name="Code_Download_Type" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="Code_Download_Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище DataBaseModelContainer">
+          <EntitySet Name="Additionally_Parameters" EntityType="Self.Additionally_Parameters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category_Trailer" EntityType="Self.Category_Trailer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Download_Types" EntityType="Self.Download_Types" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Executors" EntityType="Self.Executors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vehicles" EntityType="Self.Vehicles" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Vehicles__Code_C__4D94879B" Association="Self.FK__Vehicles__Code_C__4D94879B">
+            <End Role="Category_Trailer" EntitySet="Category_Trailer" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vehicles__Code_E__4CA06362" Association="Self.FK__Vehicles__Code_E__4CA06362">
+            <End Role="Executors" EntitySet="Executors" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vehicles_AdditionallyParameters" Association="Self.FK_Vehicles_AdditionallyParameters">
+            <End Role="Additionally_Parameters" EntitySet="Additionally_Parameters" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vehicles_DownloadType" Association="Self.FK_Vehicles_DownloadType">
+            <End Role="Download_Types" EntitySet="Download_Types" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DataBaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DataBaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Additionally_Parameters" EntityType="DataBaseModel.Additionally_Parameters" />
+          <EntitySet Name="Category_Trailer" EntityType="DataBaseModel.Category_Trailer" />
+          <EntitySet Name="Download_Types" EntityType="DataBaseModel.Download_Types" />
+          <EntitySet Name="Executors" EntityType="DataBaseModel.Executors" />
+          <EntitySet Name="sysdiagrams" EntityType="DataBaseModel.sysdiagrams" />
+          <EntitySet Name="Vehicles" EntityType="DataBaseModel.Vehicles" />
+          <AssociationSet Name="FK_Vehicles_AdditionallyParameters" Association="DataBaseModel.FK_Vehicles_AdditionallyParameters">
+            <End Role="Additionally_Parameters" EntitySet="Additionally_Parameters" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vehicles__Code_C__4D94879B" Association="DataBaseModel.FK__Vehicles__Code_C__4D94879B">
+            <End Role="Category_Trailer" EntitySet="Category_Trailer" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vehicles_DownloadType" Association="DataBaseModel.FK_Vehicles_DownloadType">
+            <End Role="Download_Types" EntitySet="Download_Types" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vehicles__Code_E__4CA06362" Association="DataBaseModel.FK__Vehicles__Code_E__4CA06362">
+            <End Role="Executors" EntitySet="Executors" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Additionally_Parameters">
+          <Key>
+            <PropertyRef Name="Code_Additionally_Parameter" />
+          </Key>
+          <Property Name="Code_Additionally_Parameter" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_Additionally_Parameter" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Vehicles" Relationship="DataBaseModel.FK_Vehicles_AdditionallyParameters" FromRole="Additionally_Parameters" ToRole="Vehicles" />
+        </EntityType>
+        <EntityType Name="Category_Trailer">
+          <Key>
+            <PropertyRef Name="Code_Trailer" />
+          </Key>
+          <Property Name="Code_Trailer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_Trailer" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Vehicles" Relationship="DataBaseModel.FK__Vehicles__Code_C__4D94879B" FromRole="Category_Trailer" ToRole="Vehicles" />
+        </EntityType>
+        <EntityType Name="Download_Types">
+          <Key>
+            <PropertyRef Name="Code_Download_Type" />
+          </Key>
+          <Property Name="Code_Download_Type" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_Download_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Vehicles" Relationship="DataBaseModel.FK_Vehicles_DownloadType" FromRole="Download_Types" ToRole="Vehicles" />
+        </EntityType>
+        <EntityType Name="Executors">
+          <Key>
+            <PropertyRef Name="Code_Executor" />
+          </Key>
+          <Property Name="Code_Executor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_Executor" Type="String" MaxLength="51" FixedLength="false" Unicode="true" />
+          <Property Name="Surname_Executor" Type="String" MaxLength="51" FixedLength="false" Unicode="true" />
+          <Property Name="Midname_Executor" Type="String" MaxLength="51" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone_Executor" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Id_Ati" Type="Int32" />
+          <NavigationProperty Name="Vehicles" Relationship="DataBaseModel.FK__Vehicles__Code_E__4CA06362" FromRole="Executors" ToRole="Vehicles" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Vehicles">
+          <Key>
+            <PropertyRef Name="Code_Vehicle" />
+          </Key>
+          <Property Name="Code_Vehicle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code_Executor" Type="Int32" />
+          <Property Name="Code_Category" Type="Int32" />
+          <Property Name="Brand_Vehicle" Type="String" MaxLength="21" FixedLength="false" Unicode="true" />
+          <Property Name="Model_Vehicle" Type="String" MaxLength="21" FixedLength="false" Unicode="true" />
+          <Property Name="Length_Vehicle" Type="Single" />
+          <Property Name="Width_Vehicle" Type="Single" />
+          <Property Name="Height_Vehicle" Type="Single" />
+          <Property Name="Tonnage_Vehicle" Type="Single" />
+          <Property Name="Volume_Vehicle" Type="Single" />
+          <Property Name="Number_Vehicle" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Code_Download_Type" Type="Int32" />
+          <Property Name="Code_Additionally_Parameter" Type="Int32" />
+          <NavigationProperty Name="Additionally_Parameters" Relationship="DataBaseModel.FK_Vehicles_AdditionallyParameters" FromRole="Vehicles" ToRole="Additionally_Parameters" />
+          <NavigationProperty Name="Category_Trailer" Relationship="DataBaseModel.FK__Vehicles__Code_C__4D94879B" FromRole="Vehicles" ToRole="Category_Trailer" />
+          <NavigationProperty Name="Download_Types" Relationship="DataBaseModel.FK_Vehicles_DownloadType" FromRole="Vehicles" ToRole="Download_Types" />
+          <NavigationProperty Name="Executors" Relationship="DataBaseModel.FK__Vehicles__Code_E__4CA06362" FromRole="Vehicles" ToRole="Executors" />
+        </EntityType>
+        <Association Name="FK_Vehicles_AdditionallyParameters">
+          <End Type="DataBaseModel.Additionally_Parameters" Role="Additionally_Parameters" Multiplicity="0..1" />
+          <End Type="DataBaseModel.Vehicles" Role="Vehicles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Additionally_Parameters">
+              <PropertyRef Name="Code_Additionally_Parameter" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="Code_Additionally_Parameter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vehicles__Code_C__4D94879B">
+          <End Type="DataBaseModel.Category_Trailer" Role="Category_Trailer" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataBaseModel.Vehicles" Role="Vehicles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category_Trailer">
+              <PropertyRef Name="Code_Trailer" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="Code_Category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vehicles_DownloadType">
+          <End Type="DataBaseModel.Download_Types" Role="Download_Types" Multiplicity="0..1" />
+          <End Type="DataBaseModel.Vehicles" Role="Vehicles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Download_Types">
+              <PropertyRef Name="Code_Download_Type" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="Code_Download_Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vehicles__Code_E__4CA06362">
+          <End Type="DataBaseModel.Executors" Role="Executors" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataBaseModel.Vehicles" Role="Vehicles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Executors">
+              <PropertyRef Name="Code_Executor" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="Code_Executor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище DataBaseModelContainer" CdmEntityContainer="DataBaseEntities">
+          <EntitySetMapping Name="Additionally_Parameters">
+            <EntityTypeMapping TypeName="DataBaseModel.Additionally_Parameters">
+              <MappingFragment StoreEntitySet="Additionally_Parameters">
+                <ScalarProperty Name="Name_Additionally_Parameter" ColumnName="Name_Additionally_Parameter" />
+                <ScalarProperty Name="Code_Additionally_Parameter" ColumnName="Code_Additionally_Parameter" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Category_Trailer">
+            <EntityTypeMapping TypeName="DataBaseModel.Category_Trailer">
+              <MappingFragment StoreEntitySet="Category_Trailer">
+                <ScalarProperty Name="Name_Trailer" ColumnName="Name_Trailer" />
+                <ScalarProperty Name="Code_Trailer" ColumnName="Code_Trailer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Download_Types">
+            <EntityTypeMapping TypeName="DataBaseModel.Download_Types">
+              <MappingFragment StoreEntitySet="Download_Types">
+                <ScalarProperty Name="Name_Download_Type" ColumnName="Name_Download_Type" />
+                <ScalarProperty Name="Code_Download_Type" ColumnName="Code_Download_Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Executors">
+            <EntityTypeMapping TypeName="DataBaseModel.Executors">
+              <MappingFragment StoreEntitySet="Executors">
+                <ScalarProperty Name="Id_Ati" ColumnName="Id_Ati" />
+                <ScalarProperty Name="Telephone_Executor" ColumnName="Telephone_Executor" />
+                <ScalarProperty Name="Midname_Executor" ColumnName="Midname_Executor" />
+                <ScalarProperty Name="Surname_Executor" ColumnName="Surname_Executor" />
+                <ScalarProperty Name="Name_Executor" ColumnName="Name_Executor" />
+                <ScalarProperty Name="Code_Executor" ColumnName="Code_Executor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DataBaseModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vehicles">
+            <EntityTypeMapping TypeName="DataBaseModel.Vehicles">
+              <MappingFragment StoreEntitySet="Vehicles">
+                <ScalarProperty Name="Code_Additionally_Parameter" ColumnName="Code_Additionally_Parameter" />
+                <ScalarProperty Name="Code_Download_Type" ColumnName="Code_Download_Type" />
+                <ScalarProperty Name="Number_Vehicle" ColumnName="Number_Vehicle" />
+                <ScalarProperty Name="Volume_Vehicle" ColumnName="Volume_Vehicle" />
+                <ScalarProperty Name="Tonnage_Vehicle" ColumnName="Tonnage_Vehicle" />
+                <ScalarProperty Name="Height_Vehicle" ColumnName="Height_Vehicle" />
+                <ScalarProperty Name="Width_Vehicle" ColumnName="Width_Vehicle" />
+                <ScalarProperty Name="Length_Vehicle" ColumnName="Length_Vehicle" />
+                <ScalarProperty Name="Model_Vehicle" ColumnName="Model_Vehicle" />
+                <ScalarProperty Name="Brand_Vehicle" ColumnName="Brand_Vehicle" />
+                <ScalarProperty Name="Code_Category" ColumnName="Code_Category" />
+                <ScalarProperty Name="Code_Executor" ColumnName="Code_Executor" />
+                <ScalarProperty Name="Code_Vehicle" ColumnName="Code_Vehicle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

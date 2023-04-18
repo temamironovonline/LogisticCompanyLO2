@@ -1,0 +1,113 @@
+﻿<Window x:Class="LogisticCompanyLO.AddExecutorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:LogisticCompanyLO"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="CARAVELLA - Добавление исполнителя" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Name="title" Text="ДОБАВЛЕНИЕ ИСПОЛНИТЕЛЯ" Grid.ColumnSpan="2" VerticalAlignment="Center" Style="{StaticResource headerText}"></TextBlock>
+
+        <StackPanel Grid.Row="1" HorizontalAlignment="Left" Margin="5">
+            <StackPanel Margin="5">
+                <TextBlock Text="Фамилия" Style="{StaticResource mainText}"></TextBlock>
+                <TextBox Name="executorSurnameInput" Style="{StaticResource inputTextAddExecutor}"></TextBox>
+            </StackPanel>
+
+            <StackPanel Margin="5">
+                <TextBlock Text="Имя" Style="{StaticResource mainText}"></TextBlock>
+                <TextBox Name="executorNameInput" Style="{StaticResource inputTextAddExecutor}"></TextBox>
+            </StackPanel>
+
+            <StackPanel Margin="5">
+                <TextBlock Text="Отчество" Style="{StaticResource mainText}"></TextBlock>
+                <TextBox Name="executorMidnameInput" Style="{StaticResource inputTextAddExecutor}"></TextBox>
+            </StackPanel>
+
+            <StackPanel Margin="5">
+                <TextBlock Text="Код АТИ" Style="{StaticResource mainText}"></TextBlock>
+                <TextBox Name="executorIdAti" Style="{StaticResource inputTextAddExecutor}" PreviewTextInput="executorIdAti_PreviewTextInput"></TextBox>
+            </StackPanel>
+
+            <StackPanel Margin="5">
+                <TextBlock Text="Номер телефона" Style="{StaticResource mainText}"></TextBlock>
+                <xctk:MaskedTextBox Name="executorTelephoneNumberInput" Mask="+7 (000)-000-00-00" Style="{StaticResource inputTextAddExecutor}"></xctk:MaskedTextBox>
+            </StackPanel>
+        </StackPanel>
+        <Button Grid.Row="2" Grid.Column="1" Name="addVehicle" Content="Добавить автомобиль" Style="{StaticResource button}" Width="150" Height="35" Margin="0,0,10,0" HorizontalAlignment="Right" Click="addVehicle_Click"></Button>
+
+        <ListView Grid.Row="1" Grid.Column="1" BorderBrush="#FF6F97EE" VerticalAlignment="Stretch" Name="vehiclesList" ScrollViewer.CanContentScroll="False" MouseDoubleClick="vehiclesList_MouseDoubleClick" HorizontalContentAlignment="Stretch">
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Name="deleteVehicle" Header="Удалить автомобиль" Click="deleteVehicle_Click"></MenuItem>
+                </ContextMenu>
+            </ListView.ContextMenu>
+            
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel></StackPanel>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="0,5,0,0">
+                        <TextBlock Style="{StaticResource importantText}" Margin="5,0,0,0">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1} {2}">
+                                    <Binding Path="Brand_Vehicle"/>
+                                    <Binding Path="Model_Vehicle"/>
+                                    <Binding Path="Number_Vehicle"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+
+                        <WrapPanel>
+                            <StackPanel Margin="5">
+                                <TextBlock Style="{StaticResource importantText}">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}Владелец: {0} {1} {2}">
+                                            <Binding Path="Executors.Surname_Executor"/>
+                                            <Binding Path="Executors.Name_Executor"/>
+                                            <Binding Path="Executors.Midname_Executor"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                                <TextBlock Text="{Binding GetCategoryTrailer, StringFormat=Тип кузова: {0}, TargetNullValue=Тип кузова: не указано, FallbackValue=Тип кузова: не указано}" Style="{StaticResource mainText}"></TextBlock>
+                                <TextBlock Text="{Binding GetDownloadType, StringFormat=Тип загрузки: {0}, TargetNullValue=Тип загрузки: не указано, FallbackValue=Тип загрузки: не указано}" Style="{StaticResource mainText}"></TextBlock>
+                                <TextBlock Text="{Binding GetAdditionalParameter, StringFormat=Доп. параметр: {0}, TargetNullValue=Доп. параметр: не указано, FallbackValue=Доп. параметр: не указано}" Style="{StaticResource mainText}"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Margin="5">
+                                <WrapPanel>
+                                    <TextBlock Text="{Binding Tonnage_Vehicle, StringFormat=Тоннаж: {0}}" Style="{StaticResource importantText}"></TextBlock>
+                                    <TextBlock Text="{Binding Volume_Vehicle, StringFormat=Объем: {0}}" Margin="5,0,0,0" Style="{StaticResource importantText}"></TextBlock>
+                                </WrapPanel>
+                                <TextBlock Text="{Binding Length_Vehicle, StringFormat=Длина: {0}}" Style="{StaticResource mainText}"></TextBlock>
+                                <TextBlock Text="{Binding Width_Vehicle, StringFormat=Ширина: {0}}" Style="{StaticResource mainText}"></TextBlock>
+                                <TextBlock Text="{Binding Height_Vehicle, StringFormat=Высота: {0}}" Style="{StaticResource mainText}"></TextBlock>
+                            </StackPanel>
+                        </WrapPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" Grid.RowSpan="2" VerticalAlignment="Bottom">
+            <Button Name="createExecutor" Content="Добавить" Click="createExecutor_Click" Width="150" Height="35" Margin="5" Style="{StaticResource button}"></Button>
+            <Button Name="deleteExecutor" Content="Удалить" Click="deleteExecutor_Click" Width="150" Height="35"  Margin="5" Visibility="Collapsed" Style="{StaticResource button}"></Button>
+        </StackPanel>
+    </Grid>
+</Window>

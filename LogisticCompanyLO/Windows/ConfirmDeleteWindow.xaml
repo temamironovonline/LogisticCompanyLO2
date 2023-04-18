@@ -1,0 +1,22 @@
+﻿<Window x:Class="LogisticCompanyLO.ConfirmDeleteWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LogisticCompanyLO"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Подтвердите удаление" Height="200" Width="400"
+        ResizeMode="NoResize">
+    <Grid>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="Вы уверены, что хотите удалить запись?" Style="{StaticResource mainText}"></TextBlock>
+
+            <WrapPanel HorizontalAlignment="Center" Margin="5">
+                <Button Name="confirmButton" Content="Подтвердить" Width="100" Margin="0,0,10,0" Style="{StaticResource button}" Click="confirmButton_Click"></Button>
+                <Button Name="cancelButton" Content="Отменить" Width="100" Style="{StaticResource button}" Click="cancelButton_Click"></Button>
+            </WrapPanel>
+        </StackPanel>
+        
+    </Grid>
+</Window>

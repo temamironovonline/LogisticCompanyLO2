@@ -1,0 +1,161 @@
+﻿<Page x:Class="LogisticCompanyLO.VehiclesList"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:LogisticCompanyLO" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      mc:Ignorable="d" 
+      d:DesignHeight="550" d:DesignWidth="1000"
+      Title="VehiclesList">
+
+    <Grid Background="#d3d4ff">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <WrapPanel>
+                <WrapPanel Grid.Row="0" ScrollViewer.CanContentScroll="True" Orientation="Horizontal">
+                        <StackPanel Margin="5">
+                            <TextBlock Text="Грузоподъемность" Style="{StaticResource mainText}"></TextBlock>
+                            <WrapPanel>
+                                <TextBox Name="loadCapacityInput" Width="100" TextChanged="loadCapacityInput_TextChanged" PreviewTextInput="loadCapacityInput_PreviewTextInput" Style="{StaticResource inputText}"></TextBox>
+                                <TextBlock Text="т" Style="{StaticResource unitMeasurementText}"></TextBlock>
+                            </WrapPanel>
+                            <TextBlock Text="Диапазон (+- т)" Style="{StaticResource mainText}"></TextBlock>
+                            <WrapPanel>
+                            <TextBox Name="loadCapacityRangeInput" Width="100" TextChanged="loadCapacityInput_TextChanged" PreviewTextInput="loadCapacityInput_PreviewTextInput" Style="{StaticResource inputText}"></TextBox>
+                                <TextBlock Text="т" Style="{StaticResource unitMeasurementText}"></TextBlock>
+                            </WrapPanel>
+                        </StackPanel>
+
+                        <StackPanel Margin="5">
+                            <TextBlock Text="Объем кузова" Style="{StaticResource mainText}"></TextBlock>
+                            <WrapPanel>
+                            <TextBox Name="volumeBodyInput" Width="100" TextChanged="loadCapacityInput_TextChanged" PreviewTextInput="loadCapacityInput_PreviewTextInput" Style="{StaticResource inputText}"></TextBox>
+                                <TextBlock Text="м3" Style="{StaticResource unitMeasurementText}"></TextBlock>
+                            </WrapPanel>
+                        <TextBlock Text="Диапазон (+- м3)" Style="{StaticResource mainText}"></TextBlock>
+                            <WrapPanel>
+                            <TextBox Name="volumeBodyRangeInput" Width="100" TextChanged="loadCapacityInput_TextChanged" PreviewTextInput="loadCapacityInput_PreviewTextInput" Style="{StaticResource inputText}"></TextBox>
+                                <TextBlock Text="м3" Style="{StaticResource unitMeasurementText}"></TextBlock>
+                            </WrapPanel>
+                        </StackPanel>
+
+                        <StackPanel Margin="5">
+                            <TextBlock Text="Длина кузова" Style="{StaticResource mainText}"></TextBlock>
+                            <WrapPanel>
+                            <TextBox Name="lengthBodyInput" Width="100" TextChanged="loadCapacityInput_TextChanged" PreviewTextInput="loadCapacityInput_PreviewTextInput" Style="{StaticResource inputText}"></TextBox>
+                                <TextBlock Text="м" Style="{StaticResource unitMeasurementText}"></TextBlock>
+                            </WrapPanel>
+                        <TextBlock Text="Диапазон (+- м)" Style="{StaticResource mainText}"></TextBlock>
+                            <WrapPanel>
+                            <TextBox Name="lengthBodyRangeInput" Width="100" TextChanged="loadCapacityInput_TextChanged" PreviewTextInput="loadCapacityInput_PreviewTextInput" Style="{StaticResource inputText}"></TextBox>
+                                <TextBlock Text="м" Style="{StaticResource unitMeasurementText}"></TextBlock>
+                            </WrapPanel>
+                        </StackPanel>
+
+                        <StackPanel Margin="5">
+                            <TextBlock Text="Ширина кузова" Style="{StaticResource mainText}"></TextBlock>
+                            <WrapPanel>
+                            <TextBox Name="widthBodyInput" Width="100" TextChanged="loadCapacityInput_TextChanged" PreviewTextInput="loadCapacityInput_PreviewTextInput" Style="{StaticResource inputText}"></TextBox>
+                                <TextBlock Text="м" Style="{StaticResource unitMeasurementText}"></TextBlock>
+                            </WrapPanel>
+                        <TextBlock Text="Диапазон (+- м)" Style="{StaticResource mainText}"></TextBlock>
+                            <WrapPanel>
+                            <TextBox Name="widthBodyRangeInput" Width="100" TextChanged="loadCapacityInput_TextChanged" PreviewTextInput="loadCapacityInput_PreviewTextInput" Style="{StaticResource inputText}"></TextBox>
+                                <TextBlock Text="м" Style="{StaticResource unitMeasurementText}"></TextBlock>
+                            </WrapPanel>
+                        </StackPanel>
+
+                        <StackPanel Margin="5">
+                            <TextBlock Text="Высота кузова" Style="{StaticResource mainText}"></TextBlock>
+                            <WrapPanel>
+                            <TextBox Name="heightBodyInput" Width="100" TextChanged="loadCapacityInput_TextChanged" PreviewTextInput="loadCapacityInput_PreviewTextInput" Style="{StaticResource inputText}"></TextBox>
+                                <TextBlock Text="м" Style="{StaticResource unitMeasurementText}"></TextBlock>
+                            </WrapPanel>
+                        <TextBlock Text="Диапазон (+- м)" Style="{StaticResource mainText}"></TextBlock>
+                            <WrapPanel>
+                            <TextBox Name="heightBodyRangeInput" Width="100" TextChanged="loadCapacityInput_TextChanged" PreviewTextInput="loadCapacityInput_PreviewTextInput" Style="{StaticResource inputText}"></TextBox>
+                                <TextBlock Text="м" Style="{StaticResource unitMeasurementText}"></TextBlock>
+                            </WrapPanel>
+                        </StackPanel>
+
+                        <StackPanel Margin="5">
+                            <TextBlock Text="Тип кузова" Style="{StaticResource mainText}"></TextBlock>
+                            <WrapPanel>
+                                <xctk:CheckComboBox Name="typeTrailerBox" Width="200" DisplayMemberPath="Name_Trailer" SelectedValue="Code_Trailer" IsSelectAllActive="True" ItemSelectionChanged="typeTrailerBox_ItemSelectionChanged" Style="{StaticResource multiplyComboBox}"></xctk:CheckComboBox>
+                            </WrapPanel>
+                        </StackPanel>
+
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Исполнитель" Style="{StaticResource mainText}"></TextBlock>
+                        <WrapPanel>
+                            <ComboBox Name="executorBox" Width="250" SelectionChanged="executorBox_SelectionChanged" Style="{StaticResource comboBox}"></ComboBox>
+                        </WrapPanel>
+                    </StackPanel>
+                </WrapPanel>
+                <Button Name="addVehicle" Height="30" Width="200" Content="Добавить автомобиль" Style="{StaticResource button}" Margin="10" Click="addVehicle_Click"></Button>
+            </WrapPanel>
+        </ScrollViewer>
+        
+        
+        <ListView Name="vehiclesList" Grid.Row="1" ScrollViewer.CanContentScroll="False" MouseDoubleClick="vehiclesList_MouseDoubleClick" Background="Transparent">
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Name="deleteVehicle" Header="Удалить автомобиль" Click="deleteVehicle_Click"></MenuItem>
+                </ContextMenu>
+            </ListView.ContextMenu>
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel></StackPanel>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="0,5,0,0">
+                        <TextBlock Style="{StaticResource importantText}" Margin="5,0,0,0">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1} {2}" TargetNullValue="Основная информация не указана">
+                                    <Binding Path="Brand_Vehicle" TargetNullValue="Марка не указана" FallbackValue="Марка не указана"/>
+                                    <Binding Path="Model_Vehicle" TargetNullValue="Модель не указана" FallbackValue="Модель не указана"/>
+                                    <Binding Path="Number_Vehicle" TargetNullValue="Номер не указан" FallbackValue="Номер не указан"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+
+                        <WrapPanel>
+                            <StackPanel Margin="5">
+                                <TextBlock Style="{StaticResource importantText}">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}Владелец: {0} {1} {2}" FallbackValue="Владелец: отсутствует" TargetNullValue="Владелец: отсутствует">
+                                            <Binding Path="Executors.Surname_Executor"/>
+                                            <Binding Path="Executors.Name_Executor"/>
+                                            <Binding Path="Executors.Midname_Executor"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                                <TextBlock Text="{Binding StringFormat=Тип кузова: {0}, Path=Category_Trailer.Name_Trailer, TargetNullValue=Тип кузова: не указано, FallbackValue=Тип кузова: не указано}" Style="{StaticResource mainText}"></TextBlock>
+                                <TextBlock Text="{Binding Download_Types.Name_Download_Type, StringFormat=Тип загрузки: {0}, TargetNullValue=Тип загрузки: не указано, FallbackValue=Тип загрузки: не указано}" Style="{StaticResource mainText}"></TextBlock>
+                                <TextBlock Text="{Binding Additionally_Parameters.Name_Additionally_Parameter, StringFormat=Доп. параметр: {0}, TargetNullValue=Доп. параметр: не указано, FallbackValue=Доп. параметр: не указано}" Style="{StaticResource mainText}"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Margin="5">
+                                <WrapPanel>
+                                    <TextBlock Text="{Binding Tonnage_Vehicle, StringFormat=Тоннаж: {0}}" Style="{StaticResource importantText}"></TextBlock>
+                                    <TextBlock Text="{Binding Volume_Vehicle, StringFormat=Объем: {0}}" Margin="5,0,0,0" Style="{StaticResource importantText}"></TextBlock>
+                                </WrapPanel>
+                                <TextBlock Text="{Binding Length_Vehicle, StringFormat=Длина: {0}}" Style="{StaticResource mainText}"></TextBlock>
+                                <TextBlock Text="{Binding Width_Vehicle, StringFormat=Ширина: {0}}" Style="{StaticResource mainText}"></TextBlock>
+                                <TextBlock Text="{Binding Height_Vehicle, StringFormat=Высота: {0}}" Style="{StaticResource mainText}"></TextBlock>
+                            </StackPanel>
+                        </WrapPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
+    </Grid>
+</Page>
