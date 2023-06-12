@@ -5,7 +5,673 @@
              StartupUri="Windows/MainWindow.xaml">
     <Application.Resources>
 
-        
+        <!--СТИЛИ ДЛЯ НАВИГАЦИИ-->
+
+        <Style x:Key="logoText" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Google Sans Bold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="navigationEnableIcons" TargetType="Border">
+            <Setter Property="CornerRadius" Value="10"></Setter>
+            <Setter Property="Background" Value="#FF7D8DF0"></Setter>
+            <Setter Property="Width" Value="30"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+            <Setter Property="Margin" Value="0,0,10,0"></Setter>
+        </Style>
+
+        <Style x:Key="navigationDisableIcons" TargetType="Border">
+            <Setter Property="CornerRadius" Value="10"></Setter>
+            <Setter Property="Background" Value="Transparent"></Setter>
+            <Setter Property="Width" Value="30"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+            <Setter Property="Margin" Value="0,0,10,0"></Setter>
+        </Style>
+
+        <Style x:Key="navigationText" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Google Sans Medium"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#DC818181"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+
+        <!--СТИЛИ ДЛЯ LISTVIEW-->
+
+        <Style TargetType="{x:Type ListView}">
+            <Setter Property="Background" Value="#FFEAECFF"></Setter>
+            <Setter Property="Padding" Value="20"></Setter>
+            <Setter Property="Margin" Value="0,0,30,30"></Setter>
+            <Setter Property="BorderThickness" Value="0"></Setter>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="30"></Setter>
+                </Style>
+            </Style.Resources>
+           
+        </Style>
+
+        <Style TargetType="{x:Type ListViewItem}">
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Padding" Value="4,1"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+            <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+            <Setter Property="Background" Value="#FF7D8DF0"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                        <Border x:Name="listViewBorder" CornerRadius="15" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)" To="#FF6073E8" Duration="0:0:0.5"></ColorAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)" To="#FF7D8DF0" Duration="0:0:0.5"></ColorAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Selector.IsSelectionActive" Value="False"/>
+                                    <Condition Property="IsSelected" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Background" TargetName="listViewBorder" Value="#FF6073E8"/>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Selector.IsSelectionActive" Value="True"/>
+                                    <Condition Property="IsSelected" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Background" TargetName="listViewBorder" Value="#FF6073E8"/>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="listViewImportantText" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Google Sans Bold"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Margin" Value="0,0,0,2"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+
+        <Style x:Key="listViewInformationText" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Google Sans"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Margin" Value="0,0,0,2"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+
+        <!--____________________-->
+        <!--СТИЛИ ДЛЯ ФИЛЬТРАЦИИ-->
+        <!--____________________-->
+
+        <Style x:Key="filtrationTextBlock" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Google Sans"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Margin" Value="0,0,0,5"/>
+            <Setter Property="Foreground" Value="#DC818181"/>
+        </Style>
+
+        <Style x:Key="rangeText" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Google Sans"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Margin" Value="0,0,5,0"/>
+            <Setter Property="Foreground" Value="#DC818181"/>
+        </Style>
+
+        <Style TargetType="{x:Type DatePicker}">
+            <Setter Property="FontFamily" Value="Google Sans"></Setter>
+            <Setter Property="Background" Value="Transparent"></Setter>
+            <Setter Property="FontSize" Value="13"></Setter>
+            <Setter Property="BorderThickness" Value="0"></Setter>
+            <Setter Property="Foreground" Value="#DC818181"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Bottom"></Setter>
+        </Style>
+
+        <Style x:Key="textBoxAddForm" TargetType="TextBox">
+            <Setter Property="Background" Value="Transparent"></Setter>
+            <Setter Property="BorderThickness" Value="0"></Setter>
+            <Setter Property="FontFamily" Value="Google Sans"></Setter>
+            <Setter Property="FontSize" Value="13"></Setter>
+            <Setter Property="Margin" Value="0,4.2,5,0"></Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+            <Setter Property="Padding" Value="0,0,0,3"></Setter>
+            <Setter Property="Foreground" Value="#DC818181"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Grid x:Name="root" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" SnapsToDevicePixels="True">
+                            <Border x:Name="backgroundTextBox" Background="{TemplateBinding Background}" Margin="10.4">
+
+                            </Border>
+                            <Line x:Name="lineTextBox" Height="1" Stroke="#DC818181" Width="Auto" X1="0" X2="{TemplateBinding Width}" VerticalAlignment="Bottom"></Line>
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          BorderThickness="0"
+                                          Padding="{TemplateBinding Padding}"
+                                          VerticalScrollBarVisibility="Disabled"
+                                          IsTabStop="False"
+                                          Background="{x:Null}"
+                                          TextElement.Foreground="{TemplateBinding Foreground}">
+                            </ScrollViewer>
+                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"></ContentPresenter>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="Foreground" Value="#FF7D8DF0"></Setter>
+                            </Trigger>
+
+                            <Trigger Property="IsFocused" Value="False">
+                                <Setter Property="Foreground" Value="#DC818181"></Setter>
+                            </Trigger>
+
+                            <EventTrigger RoutedEvent="GotFocus">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="lineTextBox" Storyboard.TargetProperty="(Stroke).(SolidColorBrush.Color)" To="#FF7D8DF0" Duration="0:0:0:0"></ColorAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+
+                            <EventTrigger RoutedEvent="LostFocus">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="lineTextBox" Storyboard.TargetProperty="(Stroke).(SolidColorBrush.Color)" To="#DC818181" Duration="0:0:0:0"></ColorAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <Style x:Key="richTextBoxAddForm" TargetType="TextBox">
+            <Setter Property="Background" Value="Transparent"></Setter>
+            <Setter Property="BorderThickness" Value="1"></Setter>
+            <Setter Property="BorderBrush" Value="#DC818181"></Setter>
+            <Setter Property="FontFamily" Value="Google Sans"></Setter>
+            <Setter Property="FontSize" Value="13"></Setter>
+            <Setter Property="Margin" Value="0,4.2,5,0"></Setter>
+            <Setter Property="Padding" Value="5"></Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+            <Setter Property="TextWrapping" Value="Wrap"></Setter>
+            <Setter Property="Foreground" Value="#DC818181"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Grid x:Name="root" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" SnapsToDevicePixels="True">
+                            <Border x:Name="backgroundTextBox" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="10" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Opacity="0.8">
+
+                            </Border>
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          BorderThickness="0"
+                                          Padding="{TemplateBinding Padding}"
+                                          VerticalScrollBarVisibility="Disabled"
+                                          IsTabStop="False"
+                                          Background="{x:Null}"
+                                          TextElement.Foreground="{TemplateBinding Foreground}">
+                            </ScrollViewer>
+                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"></ContentPresenter>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="Foreground" Value="#FF7D8DF0"></Setter>
+                                <Setter Property="BorderBrush" Value="#FF7D8DF0"></Setter>
+                            </Trigger>
+
+                            <Trigger Property="IsFocused" Value="False">
+                                <Setter Property="Foreground" Value="#DC818181"></Setter>
+                                <Setter Property="BorderBrush" Value="#DC818181"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="filtrationTextBox" TargetType="TextBox">
+            <Setter Property="Background" Value="Transparent"></Setter>
+            <Setter Property="BorderThickness" Value="0"></Setter>
+            <Setter Property="FontFamily" Value="Google Sans"></Setter>
+            <Setter Property="FontSize" Value="13"></Setter>
+            <Setter Property="Margin" Value="0,0,5,0"></Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+            <Setter Property="Padding" Value="0,0,0,3"></Setter>
+            <Setter Property="Foreground" Value="#DC818181"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Grid x:Name="root" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" SnapsToDevicePixels="True">
+                            <Border x:Name="backgroundTextBox" Background="{TemplateBinding Background}" Margin="10.4">
+
+                            </Border>
+                            <Line x:Name="lineTextBox" Height="1" Stroke="#DC818181" Width="Auto" X1="0" X2="{TemplateBinding Width}" VerticalAlignment="Bottom"></Line>
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          BorderThickness="0"
+                                          Padding="{TemplateBinding Padding}"
+                                          VerticalScrollBarVisibility="Disabled"
+                                          IsTabStop="False"
+                                          Background="{x:Null}"
+                                          TextElement.Foreground="{TemplateBinding Foreground}">
+                            </ScrollViewer>
+                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"></ContentPresenter>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="Foreground" Value="#FF7D8DF0"></Setter>
+                            </Trigger>
+
+                            <Trigger Property="IsFocused" Value="False">
+                                <Setter Property="Foreground" Value="#DC818181"></Setter>
+                            </Trigger>
+
+                            <EventTrigger RoutedEvent="GotFocus">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="lineTextBox" Storyboard.TargetProperty="(Stroke).(SolidColorBrush.Color)" To="#FF7D8DF0" Duration="0:0:0:0"></ColorAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+
+                            <EventTrigger RoutedEvent="LostFocus">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="lineTextBox" Storyboard.TargetProperty="(Stroke).(SolidColorBrush.Color)" To="#DC818181" Duration="0:0:0:0"></ColorAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
+            <Grid Margin="0,0,0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="20" />
+                </Grid.ColumnDefinitions>
+                <Border
+                  x:Name="Border"
+                  Grid.ColumnSpan="2"
+                  CornerRadius="0"
+                  Background="Transparent"
+                  BorderBrush="Transparent"
+                  BorderThickness="1"></Border>
+                <Border 
+                  Grid.Column="0"
+                  CornerRadius="0" 
+                  Margin="10" 
+                  Background="Transparent" 
+                  BorderBrush="Transparent"
+                  BorderThickness="0,0,1,0">
+                </Border>
+                <Path 
+                  x:Name="arrow"
+                  Grid.Column="1"     
+                  Fill="#DC818181"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  Data="M0,0 L0,2 L4,6 L8,2 L8,0 L4,4 z"
+                />
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="ToggleButton.IsChecked" Value="true">
+                    <Setter TargetName="arrow" Property="Stroke" Value="#FF7D8DF0" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="ComboBoxTextBox" TargetType="{x:Type TextBox}">
+            <Border x:Name="PART_ContentHost" Focusable="False" Background="{TemplateBinding Background}" />
+        </ControlTemplate>
+
+        <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+            <Setter Property="MinWidth" Value="120"/>
+            <Setter Property="MinHeight" Value="20"/>
+            <Setter Property="Foreground" Value="#DC818181"/>
+            <Setter Property="FontFamily" Value="Google Sans"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBox}">
+                        <Grid>
+                            <Line x:Name="comboBoxLine" Stroke="#DC818181" X1="250" VerticalAlignment="Bottom" Height="1"></Line>
+                            <ToggleButton 
+                            Name="ToggleButton" 
+                            Template="{StaticResource ComboBoxToggleButton}" 
+                            Grid.Column="2" 
+                            Focusable="false"
+                            IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
+                            ClickMode="Press">
+                            </ToggleButton>
+                            <ContentPresenter Name="ContentSite" IsHitTestVisible="False"  Content="{TemplateBinding SelectionBoxItem}"
+                            ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                            ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                            Margin="3,3,23,3"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left" />
+                            <TextBox x:Name="PART_EditableTextBox"
+                            Style="{x:Null}" 
+                            Template="{StaticResource ComboBoxTextBox}" 
+                            HorizontalAlignment="Left" 
+                            VerticalAlignment="Center" 
+                            Margin="3,3,23,3"
+                            Focusable="True" 
+                            Background="Transparent"
+                            Foreground="Green"
+                            Visibility="Hidden"
+                            IsReadOnly="{TemplateBinding IsReadOnly}"/>
+                            <Popup 
+                            Name="Popup"
+                            Placement="Bottom"
+                            IsOpen="{TemplateBinding IsDropDownOpen}"
+                            AllowsTransparency="True" 
+                            Focusable="False"
+                            PopupAnimation="Slide">
+
+                                <Grid Name="DropDown"
+                              SnapsToDevicePixels="True"                
+                              MinWidth="{TemplateBinding ActualWidth}"
+                              MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border 
+                                x:Name="DropDownBorder"
+                                Background="White"
+
+                                BorderThickness="1"
+                                BorderBrush="#FF7D8DF0"/>
+                                    <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasItems" Value="false">
+                                <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="#DC818181"/>
+                            </Trigger>
+                            <Trigger Property="IsGrouping" Value="true">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                            </Trigger>
+                            <Trigger SourceName="Popup" Property="Popup.AllowsTransparency" Value="true">
+                                <Setter TargetName="DropDownBorder" Property="CornerRadius" Value="0"/>
+                                <Setter TargetName="DropDownBorder" Property="Margin" Value="0,2,0,0"/>
+                            </Trigger>
+                            <Trigger SourceName="Popup" Property="Popup.IsOpen" Value="true">
+                                <Setter Property="Foreground" Value="#FF7D8DF0"/>
+                                <Setter TargetName="comboBoxLine" Property="Stroke" Value="#FF7D8DF0" />
+                            </Trigger>
+                            <Trigger Property="IsEditable"  Value="true">
+                                <Setter Property="IsTabStop" Value="false"/>
+                                <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+            </Style.Triggers>
+        </Style>
+
+        <!-- SimpleStyles: ComboBoxItem -->
+        <Style x:Key="{x:Type ComboBoxItem}" TargetType="{x:Type ComboBoxItem}">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="Foreground" Value="#DC818181"/>
+            <Setter Property="FontFamily" Value="Google Sans"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                        <Border Name="Border"
+                              Padding="2"
+                              SnapsToDevicePixels="true">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="true">
+                                <Setter Property="Foreground" Value="#FF7D8DF0"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="#FF7D8DF0"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+
+        <!--______________________-->
+        <!--ФОРМА ДОБАВЛЕНИЯ-->
+        <!--______________________-->
+
+        <Style x:Key="mainTextAddForm" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Google Sans"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Margin" Value="0,0,0,5"/>
+            <Setter Property="Foreground" Value="#FF7D8DF0"/>
+        </Style>
+
+        <Style x:Key="mainText" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Google Sans"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Margin" Value="0,0,0,5"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+
+        <!--______________________-->
+        <!--КНОПКИ-->
+        <!--______________________-->
+
+        <Style x:Key="buttonsDeleteForm" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Background" Value="#FFB12121"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Google Sans"/>
+            <Setter Property="Width" Value="80"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="FontSize" Value="23"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="borderAddButton" BorderThickness="0" Background="{TemplateBinding Background}" CornerRadius="15">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Content="{TemplateBinding Content}"></ContentPresenter>
+                            <Border.Effect>
+                                <DropShadowEffect x:Name="dropShadowButton" Color="#FFB12121" Opacity="0.2" BlurRadius="8" Direction="300"></DropShadowEffect>
+                            </Border.Effect>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)" To="#FF9B1414" Duration="0:0:0.5"></ColorAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+
+                <EventTrigger RoutedEvent="PreviewMouseDown">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Width" To="75" Duration="0:0:0.2"></DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetProperty="Height" To="35" Duration="0:0:0.2"></DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+
+                <EventTrigger RoutedEvent="PreviewMouseUp">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Width" To="80" Duration="0:0:0.2"></DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetProperty="Height" To="40" Duration="0:0:0.2"></DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)" To="#FFB12121" Duration="0:0:0.5"></ColorAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="buttonsAddForm" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Background" Value="#FF7D8DF0"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Google Sans"/>
+            <Setter Property="Width" Value="80"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="FontSize" Value="23"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="borderAddButton" BorderThickness="0" Background="{TemplateBinding Background}" CornerRadius="15">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Content="{TemplateBinding Content}"></ContentPresenter>
+                            <Border.Effect>
+                                <DropShadowEffect x:Name="dropShadowButton" Color="#FF7D8DF0" Opacity="0.2" BlurRadius="8" Direction="300"></DropShadowEffect>
+                            </Border.Effect>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)" To="#FF6073E8" Duration="0:0:0.5"></ColorAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+
+                <EventTrigger RoutedEvent="PreviewMouseDown">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Width" To="75" Duration="0:0:0.2"></DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetProperty="Height" To="35" Duration="0:0:0.2"></DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+
+                <EventTrigger RoutedEvent="PreviewMouseUp">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Width" To="80" Duration="0:0:0.2"></DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetProperty="Height" To="40" Duration="0:0:0.2"></DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)" To="#FF7D8DF0" Duration="0:0:0.5"></ColorAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="filtrationButtons" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Background" Value="#FF7D8DF0"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Google Sans"/>
+            <Setter Property="FontSize" Value="23"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="borderAddButton" BorderThickness="0" Background="{TemplateBinding Background}" CornerRadius="15">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Content="{TemplateBinding Content}"></ContentPresenter>
+                            <Border.Effect>
+                                <DropShadowEffect x:Name="dropShadowButton" Color="#FF7D8DF0" Opacity="0.2" BlurRadius="8" Direction="300"></DropShadowEffect>
+                            </Border.Effect>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)" To="#FF6073E8" Duration="0:0:0.5"></ColorAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+
+                <EventTrigger RoutedEvent="PreviewMouseDown">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Width" To="35" Duration="0:0:0.2"></DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetProperty="Height" To="35" Duration="0:0:0.2"></DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+
+                <EventTrigger RoutedEvent="PreviewMouseUp">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Width" To="40" Duration="0:0:0.2"></DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetProperty="Height" To="40" Duration="0:0:0.2"></DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)" To="#FF7D8DF0" Duration="0:0:0.5"></ColorAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+
+
+
+
         <!--ОСНОВНЫЕ СТИЛИ-->
         <Style x:Key="headerText" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Google Sans Bold"/>
@@ -15,16 +681,11 @@
             <Setter Property="HorizontalAlignment" Value="Left"/>
         </Style>
 
-        <Style x:Key="mainText" TargetType="TextBlock">
-            <Setter Property="FontFamily" Value="Google Sans"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Margin" Value="0,0,0,2"/>
-        </Style>
-
         <Style x:Key="importantText" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Google Sans Bold"/>
             <Setter Property="FontSize" Value="13"/>
             <Setter Property="Margin" Value="0,0,0,2"/>
+            <Setter Property="Foreground" Value="Black"/>
         </Style>
 
         <Style x:Key="unitMeasurementText" TargetType="TextBlock">
@@ -39,7 +700,16 @@
             <Setter Property="Background" Value="White"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="BorderBrush" Value="#FF6F97EE"/>
-            
+        </Style>
+
+        <Style x:Key="rangeInputText" TargetType="TextBox">
+            <Setter Property="FontFamily" Value="Google Sans"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#FF6F97EE"/>
+            <Setter Property="Width" Value="35"/>
+            <Setter Property="Margin" Value="0,0,5,0"/>
         </Style>
 
         <Style x:Key="multiplyComboBox" TargetType="xctk:CheckComboBox">

@@ -4,17 +4,26 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="fe4dcdb99ba040c3967abad26090328e" Name="Diagram1">
-        <EntityTypeShape EntityType="DataBaseModel.Additionally_Parameters" Width="1.5" PointX="0.75" PointY="7.875" />
-        <EntityTypeShape EntityType="DataBaseModel.Category_Trailer" Width="1.5" PointX="0.75" PointY="5.5" />
-        <EntityTypeShape EntityType="DataBaseModel.Download_Types" Width="1.5" PointX="0.75" PointY="2.375" />
-        <EntityTypeShape EntityType="DataBaseModel.Executors" Width="1.5" PointX="0.75" PointY="10.25" />
-        <EntityTypeShape EntityType="DataBaseModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="0.75" />
-        <EntityTypeShape EntityType="DataBaseModel.Vehicles" Width="1.5" PointX="3" PointY="1" />
+      <Diagram DiagramId="fe4dcdb99ba040c3967abad26090328e" Name="Diagram1" ZoomLevel="72">
+        <EntityTypeShape EntityType="DataBaseModel.Additionally_Parameters" Width="1.5" PointX="3" PointY="15.625" />
+        <EntityTypeShape EntityType="DataBaseModel.Category_Trailer" Width="1.5" PointX="3" PointY="13.25" />
+        <EntityTypeShape EntityType="DataBaseModel.Download_Types" Width="1.5" PointX="3" PointY="17.875" />
+        <EntityTypeShape EntityType="DataBaseModel.Drivers" Width="1.5" PointX="5.25" PointY="7" />
+        <EntityTypeShape EntityType="DataBaseModel.Executors" Width="1.5" PointX="3" PointY="8.875" />
+        <EntityTypeShape EntityType="DataBaseModel.Orders" Width="1.5" PointX="7.5" PointY="8.625" />
+        <EntityTypeShape EntityType="DataBaseModel.Personal_Data" Width="1.5" PointX="0.75" PointY="5" />
+        <EntityTypeShape EntityType="DataBaseModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DataBaseModel.Vehicles" Width="1.5" PointX="5.25" PointY="11.125" />
         <AssociationConnector Association="DataBaseModel.FK_Vehicles_AdditionallyParameters" />
         <AssociationConnector Association="DataBaseModel.FK__Vehicles__Code_C__4D94879B" />
         <AssociationConnector Association="DataBaseModel.FK_Vehicles_DownloadType" />
+        <AssociationConnector Association="DataBaseModel.FK__Drivers__Code_Pa__2704CA5F" />
+        <AssociationConnector Association="DataBaseModel.FK__Orders__Code_Dri__318258D2" />
+        <AssociationConnector Association="DataBaseModel.FK_Drivers_Executors" />
+        <AssociationConnector Association="DataBaseModel.FK__Orders__Code_Exe__308E3499" />
         <AssociationConnector Association="DataBaseModel.FK__Vehicles__Code_E__4CA06362" />
+        <AssociationConnector Association="DataBaseModel.FK_Executors_Passports" />
+        <AssociationConnector Association="DataBaseModel.FK__Orders__Code_Veh__32767D0B" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

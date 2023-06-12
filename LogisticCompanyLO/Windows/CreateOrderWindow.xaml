@@ -1,0 +1,151 @@
+﻿<Window x:Class="LogisticCompanyLO.CreateOrderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:LogisticCompanyLO"
+        mc:Ignorable="d"
+        Title="CreateOrderWindow" Height="520" Width="1220">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="ДОБАВЛЕНИЕ ЗАЯВКИ" VerticalAlignment="Center" Style="{StaticResource headerText}" Margin="20" Foreground="#FF7D8DF0"></TextBlock>
+
+        <WrapPanel Grid.Row="1" Margin="20,5,5,5">
+            <StackPanel>
+                <StackPanel Margin="5">
+                    <TextBlock Text="Дата заявки" Style="{StaticResource mainTextAddForm}"></TextBlock>
+                    <StackPanel>
+                        <DatePicker Name="dateOrderSelect" SelectedDate="{x:Static sys:DateTime.Now}" Width="200" Margin="0,2,5,0" GotFocus="dateOrderSelect_GotFocus" LostFocus="dateOrderSelect_LostFocus"></DatePicker>
+                        <Line Name="underlineDateOrder" X1="200" Stroke="#DC818181"></Line>
+                    </StackPanel>
+                    
+                </StackPanel>
+
+                <StackPanel Margin="5,15,5,5">
+                    <TextBlock Text="Исполнитель" Style="{StaticResource mainTextAddForm}"></TextBlock>
+                    <ComboBox Name="executorSelect" SelectionChanged="executorSelect_SelectionChanged" Width="200"></ComboBox>
+                </StackPanel>
+
+                <StackPanel Margin="5,15,5,5">
+                    <TextBlock Text="Водитель" Style="{StaticResource mainTextAddForm}"></TextBlock>
+                    <ComboBox Name="driverSelect" Width="200"></ComboBox>
+                </StackPanel>
+
+                <StackPanel Margin="5,15,5,5">
+                    <TextBlock Text="Автомобиль" Style="{StaticResource mainTextAddForm}"></TextBlock>
+                    <ComboBox Name="vehicleSelect" Width="200"></ComboBox>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Margin="20,0,0,0">
+                <StackPanel Margin="5">
+                    <TextBlock Text="Наименование груза" Style="{StaticResource mainTextAddForm}"></TextBlock>
+                    <TextBox Name="cargoNameInput" Width="150" Style="{StaticResource textBoxAddForm}"></TextBox>
+                </StackPanel>
+
+                <StackPanel Margin="5,15,5,5">
+                    <TextBlock Text="Условия транспортировки" Style="{StaticResource mainTextAddForm}"></TextBlock>
+                    <TextBox Name="conditionTransportationInput" Width="150" Style="{StaticResource textBoxAddForm}"></TextBox>
+                </StackPanel>
+            </StackPanel>
+            
+            <StackPanel Margin="20,0,0,0">
+                <StackPanel Margin="5">
+                    <TextBlock Text="Дата загрузки" Style="{StaticResource mainTextAddForm}"></TextBlock>
+                    <StackPanel>
+                        <xctk:DateTimePicker Name="dateLoadingSelect" BorderThickness="0" Margin="0,2.8,0,3" HorizontalAlignment="Left" Width="170" FontFamily="Google Sans" Foreground="#DC818181" HorizontalContentAlignment="Left" GotFocus="dateLoadingSelect_GotFocus" LostFocus="dateLoadingSelect_LostFocus"></xctk:DateTimePicker>
+                        <Line Name="underlineLoading" X1="170" Stroke="#DC818181"></Line>
+                    </StackPanel>
+                   
+                </StackPanel>
+
+                <StackPanel Margin="5,16,5,5">
+                    <TextBlock Text="Адрес загрузки" Style="{StaticResource mainTextAddForm}"></TextBlock>
+                    <TextBox Name="placeLoadingInput" Height="86" Width="170" Style="{StaticResource richTextBoxAddForm}"></TextBox>
+                </StackPanel>
+
+                <StackPanel Margin="5,15,5,5">
+                    <TextBlock Text="Грузоотправитель" Style="{StaticResource mainTextAddForm}"></TextBlock>
+                    <TextBox Name="shipperNameInput" Width="170" Style="{StaticResource textBoxAddForm}"></TextBox>
+                </StackPanel>
+
+                <StackPanel Margin="5,15,5,5">
+                    <TextBlock Text="Телефон грузоотправителя" Style="{StaticResource mainTextAddForm}"></TextBlock>
+                    <xctk:MaskedTextBox Name="shipperTelephoneInput" Mask="+7 (000)-000-00-00" Width="170" Style="{StaticResource textBoxAddForm}"></xctk:MaskedTextBox>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Margin="20,0,0,0">
+                <StackPanel Margin="5">
+                    <TextBlock Text="Дата разгрузки" Style="{StaticResource mainTextAddForm}"></TextBlock>
+                    <StackPanel>
+                        <xctk:DateTimePicker Name="dateUnloadingSelect"  BorderThickness="0" Margin="0,2.8,0,3" HorizontalAlignment="Left" Width="170" FontFamily="Google Sans" Foreground="#DC818181" HorizontalContentAlignment="Left" GotFocus="dateUnloadingSelect_GotFocus" LostFocus="dateUnloadingSelect_LostFocus"></xctk:DateTimePicker>
+                        <Line Name="underlineUnloading" X1="170" Stroke="#DC818181"></Line>
+                    </StackPanel>
+                   
+                </StackPanel>
+
+                <StackPanel Margin="5,16,5,5">
+                    <TextBlock Text="Адрес разгрузки" Style="{StaticResource mainTextAddForm}"></TextBlock>
+                    <TextBox Name="placeUnloadingInput" Height="86" Width="170" Style="{StaticResource richTextBoxAddForm}"></TextBox>
+                </StackPanel>
+
+                <StackPanel Margin="5,15,5,5">
+                    <TextBlock Text="Грузополучатель" Style="{StaticResource mainTextAddForm}"></TextBlock>
+                    <TextBox Name="consigneeNameInput" Style="{StaticResource textBoxAddForm}" Width="170"></TextBox>
+                </StackPanel>
+
+                <StackPanel Margin="5,15,5,5">
+                    <TextBlock Text="Телефон грузополучателя" Style="{StaticResource mainTextAddForm}"></TextBlock>
+                    <xctk:MaskedTextBox Name="consigneeTelephoneInput" Mask="+7 (000)-000-00-00" Style="{StaticResource textBoxAddForm}" Width="170"></xctk:MaskedTextBox>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Margin="20,0,0,0">
+                <StackPanel Margin="5">
+                    <TextBlock Text="Маршрут" Style="{StaticResource mainTextAddForm}"></TextBlock>
+                    <TextBox Name="routeInput" Style="{StaticResource textBoxAddForm}" Width="170"></TextBox>
+                </StackPanel>
+
+                <StackPanel Margin="5,15,5,5">
+                    <TextBlock Text="Формат транспортировки" Style="{StaticResource mainTextAddForm}"></TextBlock>
+                    <TextBox Name="routeFormatInput" Style="{StaticResource textBoxAddForm}" Width="170"></TextBox>
+                </StackPanel>
+
+                <StackPanel Margin="5,15,5,5">
+                    <TextBlock Text="Стоимость оплаты" Style="{StaticResource mainTextAddForm}"></TextBlock>
+                    <TextBox Name="costPaymentInput" Style="{StaticResource textBoxAddForm}" Width="170"></TextBox>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Margin="20,5,20,5">
+                <TextBlock Text="Статус заявки" Style="{StaticResource mainTextAddForm}"></TextBlock>
+                <ComboBox Name="statusOrderSelect" SelectedIndex="0" Width="100">
+                    <ComboBoxItem Content="Открыта"></ComboBoxItem>
+                    <ComboBoxItem Content="Закрыта"></ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+        </WrapPanel>
+
+        <Button Name="convertToWord" Grid.Row="2" Style="{StaticResource buttonsAddForm}" HorizontalAlignment="Right" Click="convertToWord_Click" Visibility="Collapsed" Margin="0,0,120,0">
+            <Image Source="/Resources/word-file.png" Width="22"></Image>
+        </Button>
+
+        <Button Name="addOrder" Grid.Row="2" Style="{StaticResource buttonsAddForm}" Click="addOrder_Click" Margin="15,15,20,15" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <Image Source="/Resources/confirm.png" Width="18"></Image>
+        </Button>
+
+
+        <Button Name="deleteOrder" Grid.Row="2" Style="{StaticResource buttonsDeleteForm}"  Click="deleteOrder_Click" Margin="20,15,15,15" Visibility="Collapsed" HorizontalAlignment="Left">
+            <Image Source="/Resources/bin2.png" Width="18"></Image>
+        </Button>
+
+        
+    </Grid>
+</Window>

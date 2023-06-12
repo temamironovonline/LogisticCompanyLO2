@@ -8,22 +8,24 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ExecutorsListPage">
 
-    <Grid Background="#d3d4ff">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <WrapPanel HorizontalAlignment="Left" Margin="5">
-            <StackPanel Margin="0,0,20,0">
-                <TextBlock Text="Фамилия исполнителя" Style="{StaticResource mainText}"></TextBlock>
-                <TextBox Name="surnameExecutorInput" Style="{StaticResource inputText}" Width="140" HorizontalAlignment="Left" TextChanged="surnameExecutorInput_TextChanged"></TextBox>
+        <WrapPanel HorizontalAlignment="Left" Margin="10,20,10,20">
+            <StackPanel Margin="5">
+                <TextBlock Name="surnameExecutorHeader" Text="Фамилия" Style="{StaticResource filtrationTextBlock}"></TextBlock>
+                <TextBox Name="surnameExecutorInput" Margin="0,4.2,0,0" Style="{StaticResource filtrationTextBox}" Width="150" HorizontalAlignment="Left" TextChanged="surnameExecutorInput_TextChanged" HorizontalContentAlignment="Left" GotFocus="surnameExecutorInput_GotFocus" LostFocus="surnameExecutorInput_LostFocus"></TextBox>
             </StackPanel>
 
-            <Button Name="createExecutor" Content="Добавить исполнителя" Style="{StaticResource button}" Width="200" Height="30" Click="createExecutor_Click"></Button>
+            <Button Name="clearFiltration" Style="{StaticResource filtrationButtons}" Width="40" Height="40" Content="x" FontSize="18" Margin="10,0,0,0" VerticalAlignment="Bottom" Click="clearFiltration_Click"></Button>
         </WrapPanel>
 
-        <ListView Name="executorsList" Grid.Row="1" ScrollViewer.CanContentScroll="False" MouseDoubleClick="executorsList_MouseDoubleClick" Background="Transparent">
+        <Button Name="createExecutor" Content="+" Style="{StaticResource filtrationButtons}" Width="40" Height="40" Click="createExecutor_Click" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10,10,30,10"></Button>
+
+        <ListView Name="executorsList" Grid.Row="1" ScrollViewer.CanContentScroll="False" MouseDoubleClick="executorsList_MouseDoubleClick" ScrollViewer.VerticalScrollBarVisibility="Hidden">
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Name="deleteExecutor" Header="Удалить запись" Click="deleteExecutor_Click"></MenuItem>
@@ -37,8 +39,8 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Margin="0,5,0,0">
-                        <TextBlock Style="{StaticResource importantText}" Margin="5,0,0,0">
+                    <StackPanel Margin="2,10,0,0" Height="95">
+                        <TextBlock Style="{StaticResource listViewImportantText}" Margin="5,2,0,5" FontSize="14">
                             <TextBlock.Text>
                                 <MultiBinding StringFormat="{}{0} {1} {2}">
                                     <Binding Path="Surname_Executor"/>
@@ -48,9 +50,11 @@
                             </TextBlock.Text>
                         </TextBlock>
                         
-                        <TextBlock Margin="5,0,0,0" Text="{Binding Id_Ati, StringFormat=Код АТИ: {0}, TargetNullValue=Код АТИ: Отсутствует, FallbackValue=Код АТИ: Отсутствует}" Style="{StaticResource mainText}"></TextBlock>
+                        <TextBlock Margin="5,0,0,5" Text="{Binding Personal_Data.Id_Ati, StringFormat=Код АТИ: {0}, TargetNullValue=Код АТИ: не указано, FallbackValue=Код АТИ: не указано}" Style="{StaticResource listViewInformationText}"></TextBlock>
 
-                        <TextBlock Margin="5,0,0,0" Text="{Binding Telephone_Executor, StringFormat=Телефон: {0}, TargetNullValue=Телефон: Отсутствует, FallbackValue=Телефон: Отсутствует}" Style="{StaticResource mainText}"></TextBlock>
+                        <TextBlock Margin="5,0,0,5" Text="{Binding Personal_Data.Telephone_Number, StringFormat=Телефон: {0}, TargetNullValue=Телефон: не указано, FallbackValue=Телефон: не указано}" Style="{StaticResource listViewInformationText}"></TextBlock>
+                        
+                        <TextBlock Margin="5,0,0,5" Text="{Binding Boundaries_Work, StringFormat=Границы работы: {0}, TargetNullValue=Границы работы: не указано, FallbackValue=Границы работы: не указано}" Style="{StaticResource listViewInformationText}"></TextBlock>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

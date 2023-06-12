@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using Xceed.Wpf.Toolkit;
 using MessageBox = System.Windows.MessageBox;
 
 namespace LogisticCompanyLO
@@ -23,6 +20,8 @@ namespace LogisticCompanyLO
         public CreateVehicleWindow(Vehicles vehicle) // Конструктор при изменении автомобиля со страницы со списком автомобилей
         {
             InitializeComponent();
+
+            deleteVehicle.Visibility = Visibility.Visible; // Видимость кнопки удаления
 
             SetInformationToComboBox();
 
@@ -41,6 +40,8 @@ namespace LogisticCompanyLO
             _vehicleListFromExecutors = vehiclesList;
 
             executorStackPanel.Visibility = Visibility.Collapsed; // Поскольку добавление автомобиля происходит из окна создания исполнителя, то combobox с выбором исполнителя (владельца) автомобиля не нужен, его можно скрыть
+
+            categoryOfTrailerPanel.Margin = new Thickness(5, 5, 5, 5);
         }
 
         public CreateVehicleWindow(ListView vehicleList, Vehicles vehicle) // Конструктор добавления автомобиля при изменении автомобиля из окна добавления/редактирования исполнителя 
@@ -52,6 +53,8 @@ namespace LogisticCompanyLO
             _vehicleListFromExecutors = vehicleList;
 
             executorStackPanel.Visibility = Visibility.Collapsed; // Поскольку добавление автомобиля происходит из окна создания исполнителя, то combobox с выбором исполнителя (владельца) автомобиля не нужен, его можно скрыть
+
+            categoryOfTrailerPanel.Margin = new Thickness(5, 5, 5, 5);
 
             SetVehicleInformationForUpdate(vehicle);
         }
@@ -162,11 +165,8 @@ namespace LogisticCompanyLO
 
         private void SetVehicleInformationForUpdate(Vehicles vehicle) // Метод для заполнения полей, если выбрано изменение автомобиля
         {
-            addVehicle.Content = "Изменить данные"; // Кнопка
 
             header.Text = "ИЗМЕНЕНИЕ АВТОМОБИЛЯ"; // Заголовок страницы
-
-            deleteVehicle.Visibility = Visibility.Visible; // Видимость кнопки удаления
 
             _vehicle = vehicle;
 
@@ -192,87 +192,76 @@ namespace LogisticCompanyLO
 
             if (_vehicle.Number_Vehicle != null)
             {
-                numberVehicleInput.Text = _vehicle.Number_Vehicle;
+                //firstPartNumberInput.Text = Convert.ToString(_vehicle.Number_Vehicle[0] + _vehicle.Number_Vehicle[1] + _vehicle.Number_Vehicle[2] + _vehicle.Number_Vehicle[3] + _vehicle.Number_Vehicle[4] + _vehicle.Number_Vehicle[5]);
+
+                string firstPartNumber = "";
+
+                for (int i = 0; i < 6; i++)
+                {
+                    firstPartNumber += _vehicle.Number_Vehicle[i];
+                }
+
+                firstPartNumberInput.Text = firstPartNumber;
+
+                string region = "";
+
+                for (int i = 6; i < _vehicle.Number_Vehicle.Length; i++)
+                {
+                    region += _vehicle.Number_Vehicle[i];
+                }
+
+                regionNumberInput.Text = region;
             }
             else
             {
-                numberVehicleInput.Text = "";
+                firstPartNumberInput.Text = "";
+                regionNumberInput.Text = "";
             }
-
 
             // Если значение null, то устанавливается нулевой элемент combobox, который является "Не выбрано", иначе элементы combobox конвертируются в ComboBoxItem и ищется запись в базе данных по Uid (Uid = ID записи в бд)
 
             //
             // Исполнители
             //
-            if (_vehicle.Code_Executor != null)
+            foreach (ComboBoxItem executor in executorBox.Items)
             {
-                foreach (ComboBoxItem executor in executorBox.Items)
+                if (Convert.ToInt32(executor.Uid) == _vehicle.Code_Executor)
                 {
-                    if (Convert.ToInt32(executor.Uid) == _vehicle.Code_Executor)
-                    {
-                        executorBox.SelectedValue = executor;
-                    }
+                    executorBox.SelectedValue = executor;
                 }
-            }
-            else
-            {
-                executorBox.SelectedIndex = 0;
             }
 
             //
             // Категории прицепов
             //
-            if (_vehicle.Code_Category != null)
+            foreach (ComboBoxItem category in categoryOfTrailerBox.Items)
             {
-                foreach (ComboBoxItem category in categoryOfTrailerBox.Items)
+                if (Convert.ToInt32(category.Uid) == _vehicle.Code_Category)
                 {
-                    if (Convert.ToInt32(category.Uid) == _vehicle.Code_Category)
-                    {
-                        categoryOfTrailerBox.SelectedValue = category;
-                    }
+                    categoryOfTrailerBox.SelectedValue = category;
                 }
             }
-            else
-            {
-                categoryOfTrailerBox.SelectedIndex = 0;
-            }
-
 
             //
             // Типы загрузки
             //
-            if (_vehicle.Code_Download_Type != null)
+            foreach (ComboBoxItem downloadType in downloadTypeBox.Items)
             {
-                foreach (ComboBoxItem downloadType in downloadTypeBox.Items)
+                if (Convert.ToInt32(downloadType.Uid) == _vehicle.Code_Download_Type)
                 {
-                    if (Convert.ToInt32(downloadType.Uid) == _vehicle.Code_Download_Type)
-                    {
-                        downloadTypeBox.SelectedValue = downloadType;
-                    }
+                    downloadTypeBox.SelectedValue = downloadType;
                 }
-            }
-            else
-            {
-                downloadTypeBox.SelectedIndex = 0;
             }
 
             //
             // Доп. параметры
             //
-            if (_vehicle.Code_Additionally_Parameter != null)
+            foreach (ComboBoxItem addtionalParameter in additionalParameterBox.Items)
             {
-                foreach (ComboBoxItem addtionalParameter in additionalParameterBox.Items)
+                if (Convert.ToInt32(addtionalParameter.Uid) == _vehicle.Code_Additionally_Parameter)
                 {
-                    if (Convert.ToInt32(addtionalParameter.Uid) == _vehicle.Code_Additionally_Parameter)
-                    {
-                        additionalParameterBox.SelectedValue = addtionalParameter;
-                    }
+                    additionalParameterBox.SelectedValue = addtionalParameter;
                 }
-            }
-            else
-            {
-                additionalParameterBox.SelectedIndex = 0;
             }
 
             // Стандартное значение всегда равно 0. Если в БД значение == 0, то остается стандартное, иначе устанавливается то, которое прописано в БД
@@ -349,6 +338,14 @@ namespace LogisticCompanyLO
                     indexAdditionalParameter = null;
                 }
 
+                string number = null;
+
+                if (firstPartNumberInput.IsMaskCompleted && regionNumberInput.Text != "")
+                {
+                    number = firstPartNumberInput.Text.ToLower() + regionNumberInput.Text.ToLower();
+                    number = number.Replace("_", "");
+                }
+
                 if (_vehicle == null) // Если объект ДОБАВЛЯЕТСЯ
                 {
                     Vehicles newVehicle = new Vehicles()
@@ -364,9 +361,8 @@ namespace LogisticCompanyLO
                         Height_Vehicle = Convert.ToSingle(heightInput.Text),
                         Tonnage_Vehicle = Convert.ToSingle(tonnageInput.Text),
                         Volume_Vehicle = Convert.ToSingle(volumeInput.Text),
-                        Number_Vehicle = numberVehicleInput.Text
+                        Number_Vehicle = number
                     };
-
 
                     if (_vehicleListFromExecutors != null) // Если добавление автомобиля происходит из окна с добавлением исполнителя, то автомобиль добавляется в ListView окна добавления исполнителя
                     {
@@ -391,19 +387,19 @@ namespace LogisticCompanyLO
                     _vehicle.Height_Vehicle = Convert.ToSingle(heightInput.Text);
                     _vehicle.Tonnage_Vehicle = Convert.ToSingle(tonnageInput.Text);
                     _vehicle.Volume_Vehicle = Convert.ToSingle(volumeInput.Text);
-                    _vehicle.Number_Vehicle = numberVehicleInput.Text;
+                    _vehicle.Number_Vehicle = number;
                 }
 
                 if (_vehicleListFromExecutors == null) // Если изменение происходит со страницы с АВТОМОБИЛЯМИ, то сохраняем изменения, иначе значения меняем и сохраняем уже из окна добавления исполнителя при его окончательном добавлении в БД
                 {
                     DataBaseConnection.dataBaseEntities.SaveChanges();
-                    MessageBox.Show("Операция прошла успешно");
+                    MessageBox.Show("Операция прошла успешно", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 this.Close();
             }
             catch
             {
-                MessageBox.Show("Ошибка");
+                MessageBox.Show("Произошла ошибка", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             
         }

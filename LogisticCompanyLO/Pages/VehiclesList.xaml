@@ -5,104 +5,98 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:LogisticCompanyLO" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" 
-      d:DesignHeight="550" d:DesignWidth="1000"
+      d:DesignHeight="550" d:DesignWidth="1200"
       Title="VehiclesList">
 
-    <Grid Background="#d3d4ff">
+    <Page.Resources>
+       
+    </Page.Resources>
+    
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        
-        
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
+
+       
+        <StackPanel Margin="10,20,10,20">
             <WrapPanel>
-                <WrapPanel Grid.Row="0" ScrollViewer.CanContentScroll="True" Orientation="Horizontal">
-                        <StackPanel Margin="5">
-                            <TextBlock Text="Грузоподъемность" Style="{StaticResource mainText}"></TextBlock>
-                            <WrapPanel>
-                                <TextBox Name="loadCapacityInput" Width="100" TextChanged="loadCapacityInput_TextChanged" PreviewTextInput="loadCapacityInput_PreviewTextInput" Style="{StaticResource inputText}"></TextBox>
-                                <TextBlock Text="т" Style="{StaticResource unitMeasurementText}"></TextBlock>
-                            </WrapPanel>
-                            <TextBlock Text="Диапазон (+- т)" Style="{StaticResource mainText}"></TextBlock>
-                            <WrapPanel>
-                            <TextBox Name="loadCapacityRangeInput" Width="100" TextChanged="loadCapacityInput_TextChanged" PreviewTextInput="loadCapacityInput_PreviewTextInput" Style="{StaticResource inputText}"></TextBox>
-                                <TextBlock Text="т" Style="{StaticResource unitMeasurementText}"></TextBlock>
-                            </WrapPanel>
-                        </StackPanel>
-
-                        <StackPanel Margin="5">
-                            <TextBlock Text="Объем кузова" Style="{StaticResource mainText}"></TextBlock>
-                            <WrapPanel>
-                            <TextBox Name="volumeBodyInput" Width="100" TextChanged="loadCapacityInput_TextChanged" PreviewTextInput="loadCapacityInput_PreviewTextInput" Style="{StaticResource inputText}"></TextBox>
-                                <TextBlock Text="м3" Style="{StaticResource unitMeasurementText}"></TextBlock>
-                            </WrapPanel>
-                        <TextBlock Text="Диапазон (+- м3)" Style="{StaticResource mainText}"></TextBlock>
-                            <WrapPanel>
-                            <TextBox Name="volumeBodyRangeInput" Width="100" TextChanged="loadCapacityInput_TextChanged" PreviewTextInput="loadCapacityInput_PreviewTextInput" Style="{StaticResource inputText}"></TextBox>
-                                <TextBlock Text="м3" Style="{StaticResource unitMeasurementText}"></TextBlock>
-                            </WrapPanel>
-                        </StackPanel>
-
-                        <StackPanel Margin="5">
-                            <TextBlock Text="Длина кузова" Style="{StaticResource mainText}"></TextBlock>
-                            <WrapPanel>
-                            <TextBox Name="lengthBodyInput" Width="100" TextChanged="loadCapacityInput_TextChanged" PreviewTextInput="loadCapacityInput_PreviewTextInput" Style="{StaticResource inputText}"></TextBox>
-                                <TextBlock Text="м" Style="{StaticResource unitMeasurementText}"></TextBlock>
-                            </WrapPanel>
-                        <TextBlock Text="Диапазон (+- м)" Style="{StaticResource mainText}"></TextBlock>
-                            <WrapPanel>
-                            <TextBox Name="lengthBodyRangeInput" Width="100" TextChanged="loadCapacityInput_TextChanged" PreviewTextInput="loadCapacityInput_PreviewTextInput" Style="{StaticResource inputText}"></TextBox>
-                                <TextBlock Text="м" Style="{StaticResource unitMeasurementText}"></TextBlock>
-                            </WrapPanel>
-                        </StackPanel>
-
-                        <StackPanel Margin="5">
-                            <TextBlock Text="Ширина кузова" Style="{StaticResource mainText}"></TextBlock>
-                            <WrapPanel>
-                            <TextBox Name="widthBodyInput" Width="100" TextChanged="loadCapacityInput_TextChanged" PreviewTextInput="loadCapacityInput_PreviewTextInput" Style="{StaticResource inputText}"></TextBox>
-                                <TextBlock Text="м" Style="{StaticResource unitMeasurementText}"></TextBlock>
-                            </WrapPanel>
-                        <TextBlock Text="Диапазон (+- м)" Style="{StaticResource mainText}"></TextBlock>
-                            <WrapPanel>
-                            <TextBox Name="widthBodyRangeInput" Width="100" TextChanged="loadCapacityInput_TextChanged" PreviewTextInput="loadCapacityInput_PreviewTextInput" Style="{StaticResource inputText}"></TextBox>
-                                <TextBlock Text="м" Style="{StaticResource unitMeasurementText}"></TextBlock>
-                            </WrapPanel>
-                        </StackPanel>
-
-                        <StackPanel Margin="5">
-                            <TextBlock Text="Высота кузова" Style="{StaticResource mainText}"></TextBlock>
-                            <WrapPanel>
-                            <TextBox Name="heightBodyInput" Width="100" TextChanged="loadCapacityInput_TextChanged" PreviewTextInput="loadCapacityInput_PreviewTextInput" Style="{StaticResource inputText}"></TextBox>
-                                <TextBlock Text="м" Style="{StaticResource unitMeasurementText}"></TextBlock>
-                            </WrapPanel>
-                        <TextBlock Text="Диапазон (+- м)" Style="{StaticResource mainText}"></TextBlock>
-                            <WrapPanel>
-                            <TextBox Name="heightBodyRangeInput" Width="100" TextChanged="loadCapacityInput_TextChanged" PreviewTextInput="loadCapacityInput_PreviewTextInput" Style="{StaticResource inputText}"></TextBox>
-                                <TextBlock Text="м" Style="{StaticResource unitMeasurementText}"></TextBlock>
-                            </WrapPanel>
-                        </StackPanel>
-
-                        <StackPanel Margin="5">
-                            <TextBlock Text="Тип кузова" Style="{StaticResource mainText}"></TextBlock>
-                            <WrapPanel>
-                                <xctk:CheckComboBox Name="typeTrailerBox" Width="200" DisplayMemberPath="Name_Trailer" SelectedValue="Code_Trailer" IsSelectAllActive="True" ItemSelectionChanged="typeTrailerBox_ItemSelectionChanged" Style="{StaticResource multiplyComboBox}"></xctk:CheckComboBox>
-                            </WrapPanel>
-                        </StackPanel>
-
+                <WrapPanel>
                     <StackPanel Margin="5">
-                        <TextBlock Text="Исполнитель" Style="{StaticResource mainText}"></TextBlock>
-                        <WrapPanel>
-                            <ComboBox Name="executorBox" Width="250" SelectionChanged="executorBox_SelectionChanged" Style="{StaticResource comboBox}"></ComboBox>
+                        <TextBlock Name="loadCapacityHeader" Text="Тоннаж" Style="{StaticResource filtrationTextBlock}"></TextBlock>
+                        <WrapPanel Margin="0,4.2,0,0">
+                            <TextBlock Name="startRangeLoadCapacityText" Text="от" Style="{StaticResource rangeText}"></TextBlock>
+                            <TextBox Name="startRangeLoadCapacityInput" Width="30" Style="{StaticResource filtrationTextBox}" TextChanged="startRangeLoadCapacityInput_TextChanged" PreviewTextInput="startRangeLoadCapacityInput_PreviewTextInput" GotFocus="startRangeLoadCapacityInput_GotFocus" LostFocus="startRangeLoadCapacityInput_LostFocus"></TextBox>
+                            <TextBlock Name="endRangeLoadCapacityText" Text="до" Style="{StaticResource rangeText}"></TextBlock>
+                            <TextBox Name="endRangeLoadCapacityInput" Width="30" Style="{StaticResource filtrationTextBox}" TextChanged="startRangeLoadCapacityInput_TextChanged" PreviewTextInput="startRangeLoadCapacityInput_PreviewTextInput" GotFocus="endRangeLoadCapacityInput_GotFocus" LostFocus="endRangeLoadCapacityInput_LostFocus"></TextBox>
                         </WrapPanel>
                     </StackPanel>
+
+                    <StackPanel Margin="5">
+                        <TextBlock Name="volumeBodyHeader" Text="Объем" Style="{StaticResource filtrationTextBlock}"></TextBlock>
+                        <WrapPanel Margin="0,4.2,0,0">
+                            <TextBlock Name="startRangeVolumeBodyText" Text="от" Style="{StaticResource rangeText}"></TextBlock>
+                            <TextBox Name="startRangeVolumeBodyInput" Width="30" Style="{StaticResource filtrationTextBox}" TextChanged="startRangeLoadCapacityInput_TextChanged" PreviewTextInput="startRangeLoadCapacityInput_PreviewTextInput" GotFocus="startRangeVolumeBodyInput_GotFocus" LostFocus="startRangeVolumeBodyInput_LostFocus"></TextBox>
+                            <TextBlock Name="endRangeVolumeBodyText" Text="до" Style="{StaticResource rangeText}"></TextBlock>
+                            <TextBox Name="endRangeVolumeBodyInput" Width="30" Style="{StaticResource filtrationTextBox}" TextChanged="startRangeLoadCapacityInput_TextChanged" PreviewTextInput="startRangeLoadCapacityInput_PreviewTextInput" GotFocus="endRangeVolumeBodyInput_GotFocus" LostFocus="endRangeVolumeBodyInput_LostFocus"></TextBox>
+                        </WrapPanel>
+                    </StackPanel>
+
+                    <StackPanel Margin="5">
+                        <TextBlock Name="lengthBodyHeader" Text="Длина" Style="{StaticResource filtrationTextBlock}"></TextBlock>
+                        <WrapPanel Margin="0,4.2,0,0">
+                            <TextBlock Name="startRangeLengthBodyText" Text="от" Style="{StaticResource rangeText}"></TextBlock>
+                            <TextBox Name="startRangeLengthBodyInput" Width="30" Style="{StaticResource filtrationTextBox}" TextChanged="startRangeLoadCapacityInput_TextChanged" PreviewTextInput="startRangeLoadCapacityInput_PreviewTextInput" GotFocus="startRangeLengthBodyInput_GotFocus" LostFocus="startRangeLengthBodyInput_LostFocus"></TextBox>
+                            <TextBlock Name="endRangeLengthBodyText" Text="до" Style="{StaticResource rangeText}"></TextBlock>
+                            <TextBox Name="endRangeLengthBodyInput" Width="30" Style="{StaticResource filtrationTextBox}" TextChanged="startRangeLoadCapacityInput_TextChanged" PreviewTextInput="startRangeLoadCapacityInput_PreviewTextInput" GotFocus="endRangeLengthBodyInput_GotFocus" LostFocus="endRangeLengthBodyInput_LostFocus"></TextBox>
+                        </WrapPanel>
+                    </StackPanel>
+
+                    <StackPanel Margin="5">
+                        <TextBlock Name="widthBodyHeader" Text="Ширина" Style="{StaticResource filtrationTextBlock}"></TextBlock>
+                        <WrapPanel Margin="0,4.2,0,0">
+                            <TextBlock Name="startRangeWidthBodyText" Text="от" Style="{StaticResource rangeText}"></TextBlock>
+                            <TextBox Name="startRangeWidthBodyInput" Width="30" Style="{StaticResource filtrationTextBox}" TextChanged="startRangeLoadCapacityInput_TextChanged" PreviewTextInput="startRangeLoadCapacityInput_PreviewTextInput" GotFocus="startRangeWidthBodyInput_GotFocus" LostFocus="startRangeWidthBodyInput_LostFocus"></TextBox>
+                            <TextBlock Name="endRangeWidthBodyText" Text="до" Style="{StaticResource rangeText}"></TextBlock>
+                            <TextBox Name="endRangeWidthBodyInput" Width="30" Style="{StaticResource filtrationTextBox}" TextChanged="startRangeLoadCapacityInput_TextChanged" PreviewTextInput="startRangeLoadCapacityInput_PreviewTextInput" GotFocus="endRangeWidthBodyInput_GotFocus" LostFocus="endRangeWidthBodyInput_LostFocus"></TextBox>
+                        </WrapPanel>
+                    </StackPanel>
+
+                    <StackPanel Margin="5">
+                        <TextBlock Name="heightBodyHeader" Text="Высота" Style="{StaticResource filtrationTextBlock}"></TextBlock>
+                        <WrapPanel Margin="0,4.2,0,0">
+                            <TextBlock Name="startRangeHeightBodyText" Text="от" Style="{StaticResource rangeText}"></TextBlock>
+                            <TextBox Name="startRangeHeightBodyInput" Width="30" Style="{StaticResource filtrationTextBox}" TextChanged="startRangeLoadCapacityInput_TextChanged" PreviewTextInput="startRangeLoadCapacityInput_PreviewTextInput" GotFocus="startRangeHeightBodyInput_GotFocus" LostFocus="startRangeHeightBodyInput_LostFocus"></TextBox>
+                            <TextBlock Name="endRangeHeightBodyText" Text="до" Style="{StaticResource rangeText}"></TextBlock>
+                            <TextBox Name="endRangeHeightBodyInput" Width="30" Style="{StaticResource filtrationTextBox}" TextChanged="startRangeLoadCapacityInput_TextChanged" PreviewTextInput="startRangeLoadCapacityInput_PreviewTextInput" GotFocus="endRangeHeightBodyInput_GotFocus" LostFocus="endRangeHeightBodyInput_LostFocus"></TextBox>
+                        </WrapPanel>
+                    </StackPanel>
+
+                    <StackPanel Margin="5">
+                        <TextBlock Name="executorSelectHeader" Text="Исполнитель" Style="{StaticResource filtrationTextBlock}"></TextBlock>
+                        <WrapPanel>
+                            <ComboBox Name="executorBox" Width="200" SelectionChanged="executorBox_SelectionChanged" DropDownOpened="executorBox_DropDownOpened" DropDownClosed="executorBox_DropDownClosed"></ComboBox>
+                        </WrapPanel>
+                    </StackPanel>
+                    
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Тип кузова" Style="{StaticResource filtrationTextBlock}"></TextBlock>
+                        <StackPanel Margin="0,2.75,0,0">
+                            <xctk:CheckComboBox Name="typeTrailerBox" Background="Transparent" BorderThickness="0" Foreground="#DC818181" Height="21.25"  Width="200" DisplayMemberPath="Name_Trailer" SelectedValue="Code_Trailer" IsSelectAllActive="True" ItemSelectionChanged="typeTrailerBox_ItemSelectionChanged" Style="{StaticResource multiplyComboBox}" HorizontalContentAlignment="Left"></xctk:CheckComboBox>
+                            <Line Stroke="#DC818181" Height="1" X1="200" ></Line>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <Button Name="clearFiltration" Content="x" FontSize="18" Style="{StaticResource filtrationButtons}" Height="40" Width="40" Margin="10,0,0,0" Click="clearFiltration_Click" VerticalAlignment="Bottom"></Button>
+                   
                 </WrapPanel>
-                <Button Name="addVehicle" Height="30" Width="200" Content="Добавить автомобиль" Style="{StaticResource button}" Margin="10" Click="addVehicle_Click"></Button>
             </WrapPanel>
-        </ScrollViewer>
-        
-        
-        <ListView Name="vehiclesList" Grid.Row="1" ScrollViewer.CanContentScroll="False" MouseDoubleClick="vehiclesList_MouseDoubleClick" Background="Transparent">
+           
+        </StackPanel>
+
+        <Button Name="addVehicle" Height="40" Width="40" Margin="10,10,30,10" VerticalAlignment="Bottom" HorizontalAlignment="Right"  Content="+" Style="{StaticResource filtrationButtons}" Click="addVehicle_Click"></Button>
+
+        <ListView Name="vehiclesList" Grid.Row="1" ScrollViewer.CanContentScroll="False" MouseDoubleClick="vehiclesList_MouseDoubleClick" ScrollViewer.VerticalScrollBarVisibility="Hidden">
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Name="deleteVehicle" Header="Удалить автомобиль" Click="deleteVehicle_Click"></MenuItem>
@@ -116,20 +110,38 @@
             
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Margin="0,5,0,0">
-                        <TextBlock Style="{StaticResource importantText}" Margin="5,0,0,0">
-                            <TextBlock.Text>
-                                <MultiBinding StringFormat="{}{0} {1} {2}" TargetNullValue="Основная информация не указана">
-                                    <Binding Path="Brand_Vehicle" TargetNullValue="Марка не указана" FallbackValue="Марка не указана"/>
-                                    <Binding Path="Model_Vehicle" TargetNullValue="Модель не указана" FallbackValue="Модель не указана"/>
-                                    <Binding Path="Number_Vehicle" TargetNullValue="Номер не указан" FallbackValue="Номер не указан"/>
-                                </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
+                    <StackPanel Margin="2,10,0,0" Height="120">
+                        <WrapPanel>
+                            <TextBlock Style="{StaticResource listViewImportantText}" Margin="5,2.5,10,0" FontSize="14">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} {1}" TargetNullValue="Основная информация не указана">
+                                        <Binding Path="Brand_Vehicle" TargetNullValue="Марка не указана" FallbackValue="Марка не указана"/>
+                                        <Binding Path="Model_Vehicle" TargetNullValue="Модель не указана" FallbackValue="Модель не указана"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+
+                            <WrapPanel Margin="0,0,0,0">
+                                <Border Height="21" Width="60" BorderBrush="Black" BorderThickness="1" Background="White" CornerRadius="8,0,0,8">
+                                    <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                        <TextBlock Name="firstLetterNumber" Text="{Binding GetFirstLetterNumber}" Margin="0,0,1,0" FontSize="13" FontFamily="Google Sans Medium" VerticalAlignment="Bottom"></TextBlock>
+                                        <TextBlock Name="digitsNumber" Text="{Binding GetDigitsNumber}" FontSize="13" FontFamily="Google Sans Medium" VerticalAlignment="Bottom"></TextBlock>
+                                        <TextBlock Name="lastLettersNumber" Text="{Binding GetLastLettersNumber}" Margin="1,0,0,0" FontSize="13" FontFamily="Google Sans Medium" VerticalAlignment="Bottom"></TextBlock>
+                                    </WrapPanel>
+                                </Border>
+
+                                <Border Height="21" Width="30" BorderBrush="Black" BorderThickness="1" Background="White" CornerRadius="0,8,8,0">
+                                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                        <TextBlock Name="regionNumber" FontSize="10" Text="{Binding GetRegionNumber}" FontFamily="Google Sans Medium"></TextBlock>
+                                        <TextBlock FontSize="6" Text="RUS" HorizontalAlignment="Center" FontFamily="Google Sans Medium"></TextBlock>
+                                    </StackPanel>
+                                </Border>
+                            </WrapPanel>
+                        </WrapPanel>
 
                         <WrapPanel>
                             <StackPanel Margin="5">
-                                <TextBlock Style="{StaticResource importantText}">
+                                <TextBlock Style="{StaticResource listViewImportantText}" Margin="0,0,0,5">
                                     <TextBlock.Text>
                                         <MultiBinding StringFormat="{}Владелец: {0} {1} {2}" FallbackValue="Владелец: отсутствует" TargetNullValue="Владелец: отсутствует">
                                             <Binding Path="Executors.Surname_Executor"/>
@@ -138,18 +150,19 @@
                                         </MultiBinding>
                                     </TextBlock.Text>
                                 </TextBlock>
-                                <TextBlock Text="{Binding StringFormat=Тип кузова: {0}, Path=Category_Trailer.Name_Trailer, TargetNullValue=Тип кузова: не указано, FallbackValue=Тип кузова: не указано}" Style="{StaticResource mainText}"></TextBlock>
-                                <TextBlock Text="{Binding Download_Types.Name_Download_Type, StringFormat=Тип загрузки: {0}, TargetNullValue=Тип загрузки: не указано, FallbackValue=Тип загрузки: не указано}" Style="{StaticResource mainText}"></TextBlock>
-                                <TextBlock Text="{Binding Additionally_Parameters.Name_Additionally_Parameter, StringFormat=Доп. параметр: {0}, TargetNullValue=Доп. параметр: не указано, FallbackValue=Доп. параметр: не указано}" Style="{StaticResource mainText}"></TextBlock>
+                                <TextBlock Margin="0,0,0,5" Text="{Binding StringFormat=Тип кузова: {0}, Path=Category_Trailer.Name_Trailer, TargetNullValue=Тип кузова: не указано, FallbackValue=Тип кузова: не указано}" Style="{StaticResource listViewInformationText}"></TextBlock>
+                                <TextBlock Margin="0,0,0,5" Text="{Binding Download_Types.Name_Download_Type, StringFormat=Тип загрузки: {0}, TargetNullValue=Тип загрузки: не указано, FallbackValue=Тип загрузки: не указано}" Style="{StaticResource listViewInformationText}"></TextBlock>
+                                <TextBlock Margin="0,0,0,5" Text="{Binding Additionally_Parameters.Name_Additionally_Parameter, StringFormat=Доп. параметр: {0}, TargetNullValue=Доп. параметр: не указано, FallbackValue=Доп. параметр: не указано}" Style="{StaticResource listViewInformationText}"></TextBlock>
                             </StackPanel>
-                            <StackPanel Margin="5">
+                            
+                            <StackPanel Margin="30,5,5,5">
                                 <WrapPanel>
-                                    <TextBlock Text="{Binding Tonnage_Vehicle, StringFormat=Тоннаж: {0}}" Style="{StaticResource importantText}"></TextBlock>
-                                    <TextBlock Text="{Binding Volume_Vehicle, StringFormat=Объем: {0}}" Margin="5,0,0,0" Style="{StaticResource importantText}"></TextBlock>
+                                    <TextBlock Margin="0,0,0,5" Text="{Binding Tonnage_Vehicle, StringFormat=Тоннаж: {0}}" Style="{StaticResource listViewImportantText}"></TextBlock>
+                                    <TextBlock Margin="5,0,0,5" Text="{Binding Volume_Vehicle, StringFormat=Объем: {0}}" Style="{StaticResource listViewImportantText}"></TextBlock>
                                 </WrapPanel>
-                                <TextBlock Text="{Binding Length_Vehicle, StringFormat=Длина: {0}}" Style="{StaticResource mainText}"></TextBlock>
-                                <TextBlock Text="{Binding Width_Vehicle, StringFormat=Ширина: {0}}" Style="{StaticResource mainText}"></TextBlock>
-                                <TextBlock Text="{Binding Height_Vehicle, StringFormat=Высота: {0}}" Style="{StaticResource mainText}"></TextBlock>
+                                <TextBlock Margin="0,0,0,5" Text="{Binding Length_Vehicle, StringFormat=Длина: {0}}" Style="{StaticResource listViewInformationText}"></TextBlock>
+                                <TextBlock Margin="0,0,0,5" Text="{Binding Width_Vehicle, StringFormat=Ширина: {0}}" Style="{StaticResource listViewInformationText}"></TextBlock>
+                                <TextBlock Margin="0,0,0,5" Text="{Binding Height_Vehicle, StringFormat=Высота: {0}}" Style="{StaticResource listViewInformationText}"></TextBlock>
                             </StackPanel>
                         </WrapPanel>
                     </StackPanel>

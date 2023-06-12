@@ -6,20 +6,129 @@
         xmlns:local="clr-namespace:LogisticCompanyLO"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="CARAVELLA" Height="550" Width="1000">
-    <Grid Background="#d3d4ff">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+        Title="ФРЕГАТ ЛОГИСТИК" Height="550" Width="1000">
 
-        <TextBlock Name="headerPage" Style="{StaticResource headerText}"></TextBlock>
+    <Window.Resources>
+        <Style x:Key="vehiclesButton" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+            <Setter Property="Content" Value=""></Setter>
+            <Setter Property="Margin" Value="0,0,0,30"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" BorderThickness="0" BorderBrush="Black"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Content="{TemplateBinding Content}"></ContentPresenter>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
 
-        <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Button Name="vehiclesPage" Content="Автомобили" Style="{StaticResource buttonMainWindow}" Click="vehiclesPage_Click"></Button>
-            <Button Name="executorsPage" Content="Исполнители" Style="{StaticResource buttonMainWindow}" Click="executorsPage_Click"></Button>
-        </WrapPanel>
+        <TextBlock Name="headerPage" Style="{StaticResource headerText}" Visibility="Collapsed"></TextBlock>
+
+        <TextBlock Text="ФРЕГАТ ЛОГИСТИК" Style="{StaticResource logoText}"></TextBlock>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+
+            <Button Name="vehiclesPage" Style="{StaticResource vehiclesButton}" Click="vehiclesPage_Click" MouseEnter="vehiclesPage_MouseEnter" MouseLeave="vehiclesPage_MouseLeave">
+                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="150">
+                    <Canvas Width="30" Height="30" Margin="0,0,10,0">
+                        <Border Name="vehiclesEnable" Style="{StaticResource navigationEnableIcons}" DockPanel.Dock="Left" Opacity="0">
+                            <Image Source="/Resources/truckEnable.png" Width="20"></Image>
+
+                            <Border.Effect>
+                                <DropShadowEffect Color="#FF7D8DF0" Opacity="0.2" BlurRadius="8" Direction="300" >
+                                </DropShadowEffect>
+                            </Border.Effect>
+                        </Border>
+
+                        <Border Name="vehiclesDisable" Style="{StaticResource navigationDisableIcons}" DockPanel.Dock="Left">
+                            <Image Source="/Resources/truckDisable.png" Width="20"></Image>
+                        </Border>
+                    </Canvas>
+                    
+                    
+                    <TextBlock x:Name="vehiclesNavigation" Style="{StaticResource navigationText}" Text="Автомобили" Foreground="#FFC5C5C5"></TextBlock>
+                </WrapPanel>
+
+                
+            </Button>
+
+            <Button Name="executorsPage" Style="{StaticResource vehiclesButton}" Click="executorsPage_Click" MouseEnter="executorsPage_MouseEnter" MouseLeave="executorsPage_MouseLeave">
+                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="150">
+
+                    <Canvas Width="30" Height="30" Margin="0,0,10,0">
+                        <Border Name="executorsEnable" Style="{StaticResource navigationEnableIcons}" Opacity="0">
+                            <Image Source="/Resources/groupEnable.png" Width="20"></Image>
+
+                            <Border.Effect>
+                                <DropShadowEffect Color="#FF7D8DF0" Opacity="0.2" BlurRadius="8" Direction="300" >
+                                </DropShadowEffect>
+                            </Border.Effect>
+                        </Border>
+
+                        <Border Name="executorsDisable" Style="{StaticResource navigationDisableIcons}">
+                            <Image Source="/Resources/groupDisable.png" Width="20"></Image>
+                        </Border>
+                    </Canvas>
+                   
+
+                    <TextBlock x:Name="executorsNavigation" Style="{StaticResource navigationText}" Text="Исполнители" Foreground="#FFC5C5C5"></TextBlock>
+                </WrapPanel>
+            </Button>
+
+            <Button Name="driversPage" Style="{StaticResource vehiclesButton}" Click="driversPage_Click" MouseEnter="driversPage_MouseEnter" MouseLeave="driversPage_MouseLeave">
+                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="150">
+                    <Canvas Width="30" Height="30" Margin="0,0,10,0">
+                        <Border Name="driversEnable" Style="{StaticResource navigationEnableIcons}" Opacity="0">
+                            <Image Source="/Resources/driverEnable.png" Width="20"></Image>
+
+                            <Border.Effect>
+                                <DropShadowEffect Color="#FF7D8DF0" Opacity="0.2" BlurRadius="8" Direction="300" >
+                                </DropShadowEffect>
+                            </Border.Effect>
+                        </Border>
+
+                        <Border Name="driversDisable" Style="{StaticResource navigationDisableIcons}">
+                            <Image Source="/Resources/driverDisable.png" Width="20"></Image>
+                        </Border>
+                    </Canvas>
+                    
+                    <TextBlock x:Name="driversNavigation" Style="{StaticResource navigationText}" Text="Водители" Foreground="#FFC5C5C5"></TextBlock>
+                </WrapPanel>
+            </Button>
+
+
+            <Button Name="ordersPage" Style="{StaticResource vehiclesButton}" Click="ordersPage_Click" MouseEnter="ordersPage_MouseEnter" MouseLeave="ordersPage_MouseLeave">
+                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="150">
+                    <Canvas Width="30" Height="30" Margin="0,0,10,0">
+                        <Border Name="ordersEnable" Style="{StaticResource navigationEnableIcons}" Opacity="0">
+                            <Image Source="/Resources/ordersEnable.png" Width="20"></Image>
+
+                            <Border.Effect>
+                                <DropShadowEffect Color="#FF7D8DF0" Opacity="0.2" BlurRadius="8" Direction="300" >
+                                </DropShadowEffect>
+                            </Border.Effect>
+                        </Border>
+
+                        <Border Name="ordersDisable" Style="{StaticResource navigationDisableIcons}">
+                            <Image Source="/Resources/ordersDisable.png" Width="20"></Image>
+                        </Border>
+
+                    </Canvas>
+                   
+                    <TextBlock x:Name="ordersNavigation" Style="{StaticResource navigationText}" Text="Заявки" Foreground="#FFC5C5C5"></TextBlock>
+                </WrapPanel>
+            </Button>
+        </StackPanel>
         
-        <Frame Grid.Row="1" Name="mainFrame" NavigationUIVisibility="Hidden"></Frame>
+        <Frame Grid.Column="1" Name="mainFrame" NavigationUIVisibility="Hidden"></Frame>
     </Grid>
 </Window>

@@ -26,6 +26,18 @@
           <Property Name="Code_Download_Type" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name_Download_Type" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="Drivers">
+          <Key>
+            <PropertyRef Name="Code_Driver" />
+          </Key>
+          <Property Name="Code_Driver" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Surname_Driver" Type="nvarchar" MaxLength="51" />
+          <Property Name="Name_Driver" Type="nvarchar" MaxLength="51" />
+          <Property Name="Midname_Driver" Type="nvarchar" MaxLength="51" />
+          <Property Name="Code_Personal_Data" Type="int" />
+          <Property Name="Code_Executor" Type="int" />
+          <Property Name="Boundaries_Work" Type="nvarchar" MaxLength="51" />
+        </EntityType>
         <EntityType Name="Executors">
           <Key>
             <PropertyRef Name="Code_Executor" />
@@ -34,8 +46,48 @@
           <Property Name="Name_Executor" Type="nvarchar" MaxLength="51" />
           <Property Name="Surname_Executor" Type="nvarchar" MaxLength="51" />
           <Property Name="Midname_Executor" Type="nvarchar" MaxLength="51" />
-          <Property Name="Telephone_Executor" Type="nvarchar" MaxLength="25" />
+          <Property Name="Code_Personal_Data" Type="int" />
+          <Property Name="Boundaries_Work" Type="nchar" MaxLength="51" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="Code_Order" />
+          </Key>
+          <Property Name="Code_Order" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date_Order" Type="date" />
+          <Property Name="Code_Executor" Type="int" />
+          <Property Name="Code_Driver" Type="int" />
+          <Property Name="Code_Vehicle" Type="int" />
+          <Property Name="Date_Loading" Type="datetime" />
+          <Property Name="Address_Loading" Type="nvarchar" MaxLength="200" />
+          <Property Name="Shipper_Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Shipper_Telephone" Type="nvarchar" MaxLength="25" />
+          <Property Name="Cargo_Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Conditions_Transportation" Type="nvarchar" MaxLength="100" />
+          <Property Name="Date_Unloading" Type="datetime" />
+          <Property Name="Address_Unloading" Type="nvarchar" MaxLength="200" />
+          <Property Name="Consignee_Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Consignee_Telephone" Type="nvarchar" MaxLength="25" />
+          <Property Name="Route_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Transportation_Format" Type="nvarchar" MaxLength="100" />
+          <Property Name="Cost_Payment" Type="nvarchar" MaxLength="150" />
+          <Property Name="Status_Order" Type="bit" />
+          <Property Name="Executor_Is_Driver" Type="bit" />
+        </EntityType>
+        <EntityType Name="Personal_Data">
+          <Key>
+            <PropertyRef Name="Code_Personal_Data" />
+          </Key>
+          <Property Name="Code_Personal_Data" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Passport_Numbers" Type="nvarchar" MaxLength="12" />
+          <Property Name="Passport_Division_Code" Type="nvarchar" MaxLength="8" />
+          <Property Name="Passport_Date_Issued" Type="date" />
+          <Property Name="Passport_Issued" Type="nvarchar(max)" />
+          <Property Name="Telephone_Number" Type="nvarchar" MaxLength="25" />
           <Property Name="Id_Ati" Type="int" />
+          <Property Name="Driver_License_Numbers" Type="nvarchar" MaxLength="12" />
+          <Property Name="Driver_License_Date_Issued" Type="date" />
+          <Property Name="Tin_Number" Type="nvarchar" MaxLength="13" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -61,10 +113,62 @@
           <Property Name="Height_Vehicle" Type="real" />
           <Property Name="Tonnage_Vehicle" Type="real" />
           <Property Name="Volume_Vehicle" Type="real" />
-          <Property Name="Number_Vehicle" Type="nvarchar" MaxLength="10" />
+          <Property Name="Number_Vehicle" Type="nvarchar" MaxLength="20" />
           <Property Name="Code_Download_Type" Type="int" />
           <Property Name="Code_Additionally_Parameter" Type="int" />
         </EntityType>
+        <Association Name="FK__Drivers__Code_Pa__2704CA5F">
+          <End Role="Personal_Data" Type="Self.Personal_Data" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Drivers" Type="Self.Drivers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personal_Data">
+              <PropertyRef Name="Code_Personal_Data" />
+            </Principal>
+            <Dependent Role="Drivers">
+              <PropertyRef Name="Code_Personal_Data" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__Code_Dri__318258D2">
+          <End Role="Drivers" Type="Self.Drivers" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drivers">
+              <PropertyRef Name="Code_Driver" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Code_Driver" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__Code_Exe__308E3499">
+          <End Role="Executors" Type="Self.Executors" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Executors">
+              <PropertyRef Name="Code_Executor" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Code_Executor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__Code_Veh__32767D0B">
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicles">
+              <PropertyRef Name="Code_Vehicle" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Code_Vehicle" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Vehicles__Code_C__4D94879B">
           <End Role="Category_Trailer" Type="Self.Category_Trailer" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -90,6 +194,32 @@
             </Principal>
             <Dependent Role="Vehicles">
               <PropertyRef Name="Code_Executor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Drivers_Executors">
+          <End Role="Executors" Type="Self.Executors" Multiplicity="0..1" />
+          <End Role="Drivers" Type="Self.Drivers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Executors">
+              <PropertyRef Name="Code_Executor" />
+            </Principal>
+            <Dependent Role="Drivers">
+              <PropertyRef Name="Code_Executor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Executors_Passports">
+          <End Role="Personal_Data" Type="Self.Personal_Data" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Executors" Type="Self.Executors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personal_Data">
+              <PropertyRef Name="Code_Personal_Data" />
+            </Principal>
+            <Dependent Role="Executors">
+              <PropertyRef Name="Code_Personal_Data" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -121,9 +251,28 @@
           <EntitySet Name="Additionally_Parameters" EntityType="Self.Additionally_Parameters" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category_Trailer" EntityType="Self.Category_Trailer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Download_Types" EntityType="Self.Download_Types" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Drivers" EntityType="Self.Drivers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Executors" EntityType="Self.Executors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Personal_Data" EntityType="Self.Personal_Data" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vehicles" EntityType="Self.Vehicles" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Drivers__Code_Pa__2704CA5F" Association="Self.FK__Drivers__Code_Pa__2704CA5F">
+            <End Role="Personal_Data" EntitySet="Personal_Data" />
+            <End Role="Drivers" EntitySet="Drivers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__Code_Dri__318258D2" Association="Self.FK__Orders__Code_Dri__318258D2">
+            <End Role="Drivers" EntitySet="Drivers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__Code_Exe__308E3499" Association="Self.FK__Orders__Code_Exe__308E3499">
+            <End Role="Executors" EntitySet="Executors" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__Code_Veh__32767D0B" Association="Self.FK__Orders__Code_Veh__32767D0B">
+            <End Role="Vehicles" EntitySet="Vehicles" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
           <AssociationSet Name="FK__Vehicles__Code_C__4D94879B" Association="Self.FK__Vehicles__Code_C__4D94879B">
             <End Role="Category_Trailer" EntitySet="Category_Trailer" />
             <End Role="Vehicles" EntitySet="Vehicles" />
@@ -131,6 +280,14 @@
           <AssociationSet Name="FK__Vehicles__Code_E__4CA06362" Association="Self.FK__Vehicles__Code_E__4CA06362">
             <End Role="Executors" EntitySet="Executors" />
             <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Drivers_Executors" Association="Self.FK_Drivers_Executors">
+            <End Role="Executors" EntitySet="Executors" />
+            <End Role="Drivers" EntitySet="Drivers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Executors_Passports" Association="Self.FK_Executors_Passports">
+            <End Role="Personal_Data" EntitySet="Personal_Data" />
+            <End Role="Executors" EntitySet="Executors" />
           </AssociationSet>
           <AssociationSet Name="FK_Vehicles_AdditionallyParameters" Association="Self.FK_Vehicles_AdditionallyParameters">
             <End Role="Additionally_Parameters" EntitySet="Additionally_Parameters" />
@@ -149,7 +306,10 @@
           <EntitySet Name="Additionally_Parameters" EntityType="DataBaseModel.Additionally_Parameters" />
           <EntitySet Name="Category_Trailer" EntityType="DataBaseModel.Category_Trailer" />
           <EntitySet Name="Download_Types" EntityType="DataBaseModel.Download_Types" />
+          <EntitySet Name="Drivers" EntityType="DataBaseModel.Drivers" />
           <EntitySet Name="Executors" EntityType="DataBaseModel.Executors" />
+          <EntitySet Name="Orders" EntityType="DataBaseModel.Orders" />
+          <EntitySet Name="Personal_Data" EntityType="DataBaseModel.Personal_Data" />
           <EntitySet Name="sysdiagrams" EntityType="DataBaseModel.sysdiagrams" />
           <EntitySet Name="Vehicles" EntityType="DataBaseModel.Vehicles" />
           <AssociationSet Name="FK_Vehicles_AdditionallyParameters" Association="DataBaseModel.FK_Vehicles_AdditionallyParameters">
@@ -164,9 +324,33 @@
             <End Role="Download_Types" EntitySet="Download_Types" />
             <End Role="Vehicles" EntitySet="Vehicles" />
           </AssociationSet>
+          <AssociationSet Name="FK__Drivers__Code_Pa__2704CA5F" Association="DataBaseModel.FK__Drivers__Code_Pa__2704CA5F">
+            <End Role="Personal_Data" EntitySet="Personal_Data" />
+            <End Role="Drivers" EntitySet="Drivers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__Code_Dri__318258D2" Association="DataBaseModel.FK__Orders__Code_Dri__318258D2">
+            <End Role="Drivers" EntitySet="Drivers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Drivers_Executors" Association="DataBaseModel.FK_Drivers_Executors">
+            <End Role="Executors" EntitySet="Executors" />
+            <End Role="Drivers" EntitySet="Drivers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__Code_Exe__308E3499" Association="DataBaseModel.FK__Orders__Code_Exe__308E3499">
+            <End Role="Executors" EntitySet="Executors" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
           <AssociationSet Name="FK__Vehicles__Code_E__4CA06362" Association="DataBaseModel.FK__Vehicles__Code_E__4CA06362">
             <End Role="Executors" EntitySet="Executors" />
             <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Executors_Passports" Association="DataBaseModel.FK_Executors_Passports">
+            <End Role="Personal_Data" EntitySet="Personal_Data" />
+            <End Role="Executors" EntitySet="Executors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__Code_Veh__32767D0B" Association="DataBaseModel.FK__Orders__Code_Veh__32767D0B">
+            <End Role="Vehicles" EntitySet="Vehicles" />
+            <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Additionally_Parameters">
@@ -193,6 +377,21 @@
           <Property Name="Name_Download_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Vehicles" Relationship="DataBaseModel.FK_Vehicles_DownloadType" FromRole="Download_Types" ToRole="Vehicles" />
         </EntityType>
+        <EntityType Name="Drivers">
+          <Key>
+            <PropertyRef Name="Code_Driver" />
+          </Key>
+          <Property Name="Code_Driver" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Surname_Driver" Type="String" MaxLength="51" FixedLength="false" Unicode="true" />
+          <Property Name="Name_Driver" Type="String" MaxLength="51" FixedLength="false" Unicode="true" />
+          <Property Name="Midname_Driver" Type="String" MaxLength="51" FixedLength="false" Unicode="true" />
+          <Property Name="Code_Personal_Data" Type="Int32" />
+          <Property Name="Code_Executor" Type="Int32" />
+          <Property Name="Boundaries_Work" Type="String" MaxLength="51" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Personal_Data" Relationship="DataBaseModel.FK__Drivers__Code_Pa__2704CA5F" FromRole="Drivers" ToRole="Personal_Data" />
+          <NavigationProperty Name="Orders" Relationship="DataBaseModel.FK__Orders__Code_Dri__318258D2" FromRole="Drivers" ToRole="Orders" />
+          <NavigationProperty Name="Executors" Relationship="DataBaseModel.FK_Drivers_Executors" FromRole="Drivers" ToRole="Executors" />
+        </EntityType>
         <EntityType Name="Executors">
           <Key>
             <PropertyRef Name="Code_Executor" />
@@ -201,9 +400,57 @@
           <Property Name="Name_Executor" Type="String" MaxLength="51" FixedLength="false" Unicode="true" />
           <Property Name="Surname_Executor" Type="String" MaxLength="51" FixedLength="false" Unicode="true" />
           <Property Name="Midname_Executor" Type="String" MaxLength="51" FixedLength="false" Unicode="true" />
-          <Property Name="Telephone_Executor" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="Id_Ati" Type="Int32" />
+          <Property Name="Code_Personal_Data" Type="Int32" />
+          <Property Name="Boundaries_Work" Type="String" MaxLength="51" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Drivers" Relationship="DataBaseModel.FK_Drivers_Executors" FromRole="Executors" ToRole="Drivers" />
+          <NavigationProperty Name="Orders" Relationship="DataBaseModel.FK__Orders__Code_Exe__308E3499" FromRole="Executors" ToRole="Orders" />
           <NavigationProperty Name="Vehicles" Relationship="DataBaseModel.FK__Vehicles__Code_E__4CA06362" FromRole="Executors" ToRole="Vehicles" />
+          <NavigationProperty Name="Personal_Data" Relationship="DataBaseModel.FK_Executors_Passports" FromRole="Executors" ToRole="Personal_Data" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="Code_Order" />
+          </Key>
+          <Property Name="Code_Order" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date_Order" Type="DateTime" Precision="0" />
+          <Property Name="Code_Executor" Type="Int32" />
+          <Property Name="Code_Driver" Type="Int32" />
+          <Property Name="Code_Vehicle" Type="Int32" />
+          <Property Name="Date_Loading" Type="DateTime" Precision="3" />
+          <Property Name="Address_Loading" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Shipper_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Shipper_Telephone" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Cargo_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Conditions_Transportation" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Date_Unloading" Type="DateTime" Precision="3" />
+          <Property Name="Address_Unloading" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Consignee_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Consignee_Telephone" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Route_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Transportation_Format" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Cost_Payment" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Status_Order" Type="Boolean" />
+          <Property Name="Executor_Is_Driver" Type="Boolean" />
+          <NavigationProperty Name="Drivers" Relationship="DataBaseModel.FK__Orders__Code_Dri__318258D2" FromRole="Orders" ToRole="Drivers" />
+          <NavigationProperty Name="Executors" Relationship="DataBaseModel.FK__Orders__Code_Exe__308E3499" FromRole="Orders" ToRole="Executors" />
+          <NavigationProperty Name="Vehicles" Relationship="DataBaseModel.FK__Orders__Code_Veh__32767D0B" FromRole="Orders" ToRole="Vehicles" />
+        </EntityType>
+        <EntityType Name="Personal_Data">
+          <Key>
+            <PropertyRef Name="Code_Personal_Data" />
+          </Key>
+          <Property Name="Code_Personal_Data" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Passport_Numbers" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="Passport_Division_Code" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="Passport_Date_Issued" Type="DateTime" Precision="0" />
+          <Property Name="Passport_Issued" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone_Number" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Id_Ati" Type="Int32" />
+          <Property Name="Driver_License_Numbers" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="Driver_License_Date_Issued" Type="DateTime" Precision="0" />
+          <Property Name="Tin_Number" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Drivers" Relationship="DataBaseModel.FK__Drivers__Code_Pa__2704CA5F" FromRole="Personal_Data" ToRole="Drivers" />
+          <NavigationProperty Name="Executors" Relationship="DataBaseModel.FK_Executors_Passports" FromRole="Personal_Data" ToRole="Executors" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -229,13 +476,14 @@
           <Property Name="Height_Vehicle" Type="Single" />
           <Property Name="Tonnage_Vehicle" Type="Single" />
           <Property Name="Volume_Vehicle" Type="Single" />
-          <Property Name="Number_Vehicle" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Number_Vehicle" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Code_Download_Type" Type="Int32" />
           <Property Name="Code_Additionally_Parameter" Type="Int32" />
           <NavigationProperty Name="Additionally_Parameters" Relationship="DataBaseModel.FK_Vehicles_AdditionallyParameters" FromRole="Vehicles" ToRole="Additionally_Parameters" />
           <NavigationProperty Name="Category_Trailer" Relationship="DataBaseModel.FK__Vehicles__Code_C__4D94879B" FromRole="Vehicles" ToRole="Category_Trailer" />
           <NavigationProperty Name="Download_Types" Relationship="DataBaseModel.FK_Vehicles_DownloadType" FromRole="Vehicles" ToRole="Download_Types" />
           <NavigationProperty Name="Executors" Relationship="DataBaseModel.FK__Vehicles__Code_E__4CA06362" FromRole="Vehicles" ToRole="Executors" />
+          <NavigationProperty Name="Orders" Relationship="DataBaseModel.FK__Orders__Code_Veh__32767D0B" FromRole="Vehicles" ToRole="Orders" />
         </EntityType>
         <Association Name="FK_Vehicles_AdditionallyParameters">
           <End Type="DataBaseModel.Additionally_Parameters" Role="Additionally_Parameters" Multiplicity="0..1" />
@@ -275,6 +523,58 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Drivers__Code_Pa__2704CA5F">
+          <End Type="DataBaseModel.Personal_Data" Role="Personal_Data" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataBaseModel.Drivers" Role="Drivers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personal_Data">
+              <PropertyRef Name="Code_Personal_Data" />
+            </Principal>
+            <Dependent Role="Drivers">
+              <PropertyRef Name="Code_Personal_Data" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__Code_Dri__318258D2">
+          <End Type="DataBaseModel.Drivers" Role="Drivers" Multiplicity="0..1" />
+          <End Type="DataBaseModel.Orders" Role="Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drivers">
+              <PropertyRef Name="Code_Driver" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Code_Driver" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Drivers_Executors">
+          <End Type="DataBaseModel.Executors" Role="Executors" Multiplicity="0..1" />
+          <End Type="DataBaseModel.Drivers" Role="Drivers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Executors">
+              <PropertyRef Name="Code_Executor" />
+            </Principal>
+            <Dependent Role="Drivers">
+              <PropertyRef Name="Code_Executor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__Code_Exe__308E3499">
+          <End Type="DataBaseModel.Executors" Role="Executors" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataBaseModel.Orders" Role="Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Executors">
+              <PropertyRef Name="Code_Executor" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Code_Executor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Vehicles__Code_E__4CA06362">
           <End Type="DataBaseModel.Executors" Role="Executors" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -286,6 +586,32 @@
             </Principal>
             <Dependent Role="Vehicles">
               <PropertyRef Name="Code_Executor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Executors_Passports">
+          <End Type="DataBaseModel.Personal_Data" Role="Personal_Data" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataBaseModel.Executors" Role="Executors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personal_Data">
+              <PropertyRef Name="Code_Personal_Data" />
+            </Principal>
+            <Dependent Role="Executors">
+              <PropertyRef Name="Code_Personal_Data" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__Code_Veh__32767D0B">
+          <End Type="DataBaseModel.Vehicles" Role="Vehicles" Multiplicity="0..1" />
+          <End Type="DataBaseModel.Orders" Role="Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicles">
+              <PropertyRef Name="Code_Vehicle" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Code_Vehicle" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -319,15 +645,70 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Drivers">
+            <EntityTypeMapping TypeName="DataBaseModel.Drivers">
+              <MappingFragment StoreEntitySet="Drivers">
+                <ScalarProperty Name="Boundaries_Work" ColumnName="Boundaries_Work" />
+                <ScalarProperty Name="Code_Executor" ColumnName="Code_Executor" />
+                <ScalarProperty Name="Code_Personal_Data" ColumnName="Code_Personal_Data" />
+                <ScalarProperty Name="Midname_Driver" ColumnName="Midname_Driver" />
+                <ScalarProperty Name="Name_Driver" ColumnName="Name_Driver" />
+                <ScalarProperty Name="Surname_Driver" ColumnName="Surname_Driver" />
+                <ScalarProperty Name="Code_Driver" ColumnName="Code_Driver" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Executors">
             <EntityTypeMapping TypeName="DataBaseModel.Executors">
               <MappingFragment StoreEntitySet="Executors">
-                <ScalarProperty Name="Id_Ati" ColumnName="Id_Ati" />
-                <ScalarProperty Name="Telephone_Executor" ColumnName="Telephone_Executor" />
+                <ScalarProperty Name="Boundaries_Work" ColumnName="Boundaries_Work" />
+                <ScalarProperty Name="Code_Personal_Data" ColumnName="Code_Personal_Data" />
                 <ScalarProperty Name="Midname_Executor" ColumnName="Midname_Executor" />
                 <ScalarProperty Name="Surname_Executor" ColumnName="Surname_Executor" />
                 <ScalarProperty Name="Name_Executor" ColumnName="Name_Executor" />
                 <ScalarProperty Name="Code_Executor" ColumnName="Code_Executor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="DataBaseModel.Orders">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="Executor_Is_Driver" ColumnName="Executor_Is_Driver" />
+                <ScalarProperty Name="Status_Order" ColumnName="Status_Order" />
+                <ScalarProperty Name="Cost_Payment" ColumnName="Cost_Payment" />
+                <ScalarProperty Name="Transportation_Format" ColumnName="Transportation_Format" />
+                <ScalarProperty Name="Route_Name" ColumnName="Route_Name" />
+                <ScalarProperty Name="Consignee_Telephone" ColumnName="Consignee_Telephone" />
+                <ScalarProperty Name="Consignee_Name" ColumnName="Consignee_Name" />
+                <ScalarProperty Name="Address_Unloading" ColumnName="Address_Unloading" />
+                <ScalarProperty Name="Date_Unloading" ColumnName="Date_Unloading" />
+                <ScalarProperty Name="Conditions_Transportation" ColumnName="Conditions_Transportation" />
+                <ScalarProperty Name="Cargo_Name" ColumnName="Cargo_Name" />
+                <ScalarProperty Name="Shipper_Telephone" ColumnName="Shipper_Telephone" />
+                <ScalarProperty Name="Shipper_Name" ColumnName="Shipper_Name" />
+                <ScalarProperty Name="Address_Loading" ColumnName="Address_Loading" />
+                <ScalarProperty Name="Date_Loading" ColumnName="Date_Loading" />
+                <ScalarProperty Name="Code_Vehicle" ColumnName="Code_Vehicle" />
+                <ScalarProperty Name="Code_Driver" ColumnName="Code_Driver" />
+                <ScalarProperty Name="Code_Executor" ColumnName="Code_Executor" />
+                <ScalarProperty Name="Date_Order" ColumnName="Date_Order" />
+                <ScalarProperty Name="Code_Order" ColumnName="Code_Order" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Personal_Data">
+            <EntityTypeMapping TypeName="DataBaseModel.Personal_Data">
+              <MappingFragment StoreEntitySet="Personal_Data">
+                <ScalarProperty Name="Tin_Number" ColumnName="Tin_Number" />
+                <ScalarProperty Name="Driver_License_Date_Issued" ColumnName="Driver_License_Date_Issued" />
+                <ScalarProperty Name="Driver_License_Numbers" ColumnName="Driver_License_Numbers" />
+                <ScalarProperty Name="Id_Ati" ColumnName="Id_Ati" />
+                <ScalarProperty Name="Telephone_Number" ColumnName="Telephone_Number" />
+                <ScalarProperty Name="Passport_Issued" ColumnName="Passport_Issued" />
+                <ScalarProperty Name="Passport_Date_Issued" ColumnName="Passport_Date_Issued" />
+                <ScalarProperty Name="Passport_Division_Code" ColumnName="Passport_Division_Code" />
+                <ScalarProperty Name="Passport_Numbers" ColumnName="Passport_Numbers" />
+                <ScalarProperty Name="Code_Personal_Data" ColumnName="Code_Personal_Data" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

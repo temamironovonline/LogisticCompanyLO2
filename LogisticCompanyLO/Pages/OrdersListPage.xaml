@@ -1,0 +1,154 @@
+﻿<Page x:Class="LogisticCompanyLO.OrdersListPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:LogisticCompanyLO"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="900"
+      Title="OrdersListPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="10,20,10,20">
+            <WrapPanel>
+                <StackPanel Margin="5">
+                    <TextBlock Name="routeFiltrationHeader" Text="Маршрут" Style="{StaticResource filtrationTextBlock}"></TextBlock>
+                    <TextBox Name="routeFiltrationInput" Style="{StaticResource filtrationTextBox}" Margin="0,4.2,0,0" Width="150" HorizontalContentAlignment="Left" TextChanged="routeFiltrationInput_TextChanged" GotFocus="routeFiltrationInput_GotFocus" LostFocus="routeFiltrationInput_LostFocus"></TextBox>
+                </StackPanel>
+
+                <StackPanel Margin="5">
+                    <TextBlock Name="cargoNameFiltrationHeader" Text="Груз" Style="{StaticResource filtrationTextBlock}"></TextBlock>
+                    <TextBox Name="cargoNameFiltrationInput" Style="{StaticResource filtrationTextBox}" Margin="0,4.2,0,0" Width="150" HorizontalContentAlignment="Left" TextChanged="routeFiltrationInput_TextChanged" GotFocus="cargoNameFiltrationInput_GotFocus" LostFocus="cargoNameFiltrationInput_LostFocus"></TextBox>
+                </StackPanel>
+
+                <StackPanel Margin="5">
+                    <TextBlock Name="executorFiltrationHeader" Text="Исполнитель" Style="{StaticResource filtrationTextBlock}"></TextBlock>
+                    <ComboBox Name="executorFiltrationSelect" Width="200" SelectionChanged="statusFiltrationSelect_SelectionChanged" DropDownOpened="executorFiltrationSelect_DropDownOpened" DropDownClosed="executorFiltrationSelect_DropDownClosed"></ComboBox>
+                </StackPanel>
+
+                <StackPanel Margin="5">
+                    <TextBlock Name="statusFiltrationHeader" Text="Статус" Style="{StaticResource filtrationTextBlock}"></TextBlock>
+                    <ComboBox Name="statusFiltrationSelect" Width="100" SelectionChanged="statusFiltrationSelect_SelectionChanged" DropDownOpened="statusFiltrationSelect_DropDownOpened" DropDownClosed="statusFiltrationSelect_DropDownClosed">
+                        <ComboBoxItem Content="Все заявки"></ComboBoxItem>
+                        <ComboBoxItem Content="Открытые"></ComboBoxItem>
+                        <ComboBoxItem Content="Закрытые"></ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel Margin="5">
+                    <TextBlock Name="dateFiltrationHeader" Text="Дата" Margin="0,0,0,4.25" Style="{StaticResource filtrationTextBlock}"></TextBlock>
+                    <StackPanel Margin="0,2.55,0,0">
+                        <DatePicker Name="dateFiltrationSelect" Width="150" SelectedDateChanged="dateFiltrationSelect_SelectedDateChanged" GotFocus="dateFiltrationSelect_GotFocus" LostFocus="dateFiltrationSelect_LostFocus"></DatePicker>
+                        <Line Name="underlineDate" Stroke="#DC818181" X1="150"></Line>
+                    </StackPanel>
+                </StackPanel>
+            </WrapPanel>
+
+            <WrapPanel HorizontalAlignment="Left" Margin="5,10,0,0">
+                <StackPanel >
+                    <TextBlock Name="sortingHeader" Text="Сортировка" Style="{StaticResource filtrationTextBlock}"></TextBlock>
+                    <ComboBox Name="sortingSelect" Width="150" SelectionChanged="statusFiltrationSelect_SelectionChanged" DropDownOpened="sortingSelect_DropDownOpened" DropDownClosed="sortingSelect_DropDownClosed">
+                        <ComboBoxItem Content="Не выбрано"></ComboBoxItem>
+                        <ComboBoxItem Content="Сначала новые"></ComboBoxItem>
+                        <ComboBoxItem Content="Сначала старые"></ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+
+                <Button Name="clearFiltration" Style="{StaticResource filtrationButtons}" Content="x" Height="40" Width="40" Margin="10,0,0,0" FontSize="18" Click="clearFiltration_Click" VerticalAlignment="Bottom"></Button>
+            </WrapPanel>
+            
+        </StackPanel>
+
+        <Button Name="addOrder" Content="+" Style="{StaticResource filtrationButtons}" Height="40" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10,10,30,10" Click="addOrder_Click"></Button>
+        
+        <ListView Name="orderList" Grid.Row="1" MouseDoubleClick="orderList_MouseDoubleClick" ScrollViewer.CanContentScroll="False" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Name="deleteOrder" Header="Удалить заявку" Click="deleteOrder_Click"></MenuItem>
+                </ContextMenu>
+            </ListView.ContextMenu>
+
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel></StackPanel>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="2,10,0,0">
+                        <TextBlock Style="{StaticResource listViewImportantText}" Margin="5,2,0,0" FontSize="14">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} от {1:dd.MM.yyyy}">
+                                    <Binding Path="Route_Name"></Binding>
+                                    <Binding Path="Date_Order"></Binding>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+
+                        <StackPanel Margin="5">
+                            <TextBlock Text="{Binding Cargo_Name, StringFormat=Наименование груза: {0}}" Style="{StaticResource listViewInformationText}" Margin="0,0,0,5"></TextBlock>
+
+                            <TextBlock Style="{StaticResource listViewInformationText}" Margin="0,0,0,5">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}Исполнитель: {0} {1} {2}">
+                                        <Binding Path="Executors.Surname_Executor"></Binding>
+                                        <Binding Path="Executors.Name_Executor"></Binding>
+                                        <Binding Path="Executors.Midname_Executor"></Binding>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+
+                            <TextBlock Uid="{Binding Code_Order}" Name="driverName" Style="{StaticResource listViewInformationText}" Margin="0,0,0,5" Loaded="driverName_Loaded">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}Водитель: {0} {1} {2}">
+                                        <Binding Path="Drivers.Surname_Driver"></Binding>
+                                        <Binding Path="Drivers.Name_Driver"></Binding>
+                                        <Binding Path="Drivers.Midname_Driver"></Binding>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+
+                            <WrapPanel>
+                                <TextBlock Style="{StaticResource listViewInformationText}" Margin="0,2.5,0,5">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}Автомобиль: {0} {1}">
+                                            <Binding Path="Vehicles.Brand_Vehicle"></Binding>
+                                            <Binding Path="Vehicles.Model_Vehicle"></Binding>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+
+                                <WrapPanel Margin="10,0,0,0">
+                                    <Border Height="21" Width="60" BorderBrush="Black" BorderThickness="1" Background="White" CornerRadius="8,0,0,8">
+                                        <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <TextBlock Name="firstLetterNumber" Text="{Binding GetFirstLetterNumber}" Margin="0,0,1,0" FontSize="13" FontFamily="Google Sans Medium" VerticalAlignment="Bottom"></TextBlock>
+                                            <TextBlock Name="digitsNumber" Text="{Binding GetDigitsNumber}" FontSize="13" FontFamily="Google Sans Medium" VerticalAlignment="Bottom"></TextBlock>
+                                            <TextBlock Name="lastLettersNumber" Text="{Binding GetLastLettersNumber}" Margin="1,0,0,0" FontSize="13" FontFamily="Google Sans Medium" VerticalAlignment="Bottom"></TextBlock>
+                                        </WrapPanel>
+                                    </Border>
+
+                                    <Border Height="21" Width="30" BorderBrush="Black" BorderThickness="1" Background="White" CornerRadius="0,8,8,0">
+                                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <TextBlock Name="regionNumber" FontSize="10" Text="{Binding GetRegionNumber}" FontFamily="Google Sans Medium"></TextBlock>
+                                            <TextBlock FontSize="6" Text="RUS" HorizontalAlignment="Center" FontFamily="Google Sans Medium"></TextBlock>
+                                        </StackPanel>
+                                    </Border>
+                                </WrapPanel>
+                            </WrapPanel>
+                            
+
+                            <TextBlock Text="{Binding SetStatusOrder}" Foreground="{Binding SetColor}" Style="{StaticResource listViewInformationText}" Margin="0,0,0,5"></TextBlock>
+                        </StackPanel>
+                        
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>

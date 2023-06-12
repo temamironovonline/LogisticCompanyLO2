@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity.ModelConfiguration.Configuration;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace LogisticCompanyLO
 {
@@ -28,7 +30,7 @@ namespace LogisticCompanyLO
         private void createExecutor_Click(object sender, System.Windows.RoutedEventArgs e) // Создание нового исполнителя
         {
             AddExecutorWindow createExecutor = new AddExecutorWindow();
-            
+
             createExecutor.ShowDialog();
             
             FrameClass.frame.Navigate(new ExecutorsListPage());
@@ -40,7 +42,7 @@ namespace LogisticCompanyLO
 
             AddExecutorWindow addExecutor = new AddExecutorWindow(selectedExecutor);
 
-            addExecutor.Title = "CARAVELLA - Изменение исполнителя";
+            addExecutor.Title = "FREGATE LOGISTIC - Изменение исполнителя";
 
             addExecutor.ShowDialog();
 
@@ -54,11 +56,36 @@ namespace LogisticCompanyLO
             confirmDelete.ShowDialog();
             if (confirmDelete.GetReturnCode() == 1)
             {
-                DataBaseConnection.dataBaseEntities.Executors.Remove(executor);
+                List<Drivers> drivers = DataBaseConnection.dataBaseEntities.Drivers.Where(x => x.Code_Executor == executor.Code_Executor).ToList(); // Находим список водителей, принадлежащих удаляемому исполнителю
+
+                // Удаление данных происходит через таблицу Personal_Data с помощью каскадного удаления
+                foreach (Drivers driver in drivers) // Удаляем водителей
+                {
+                    Personal_Data personalDataDriver = DataBaseConnection.dataBaseEntities.Personal_Data.FirstOrDefault(x => x.Code_Personal_Data == driver.Code_Personal_Data);
+                    DataBaseConnection.dataBaseEntities.Personal_Data.Remove(personalDataDriver);
+                }
+                
+                Personal_Data personalDataExecutor = DataBaseConnection.dataBaseEntities.Personal_Data.FirstOrDefault(x => x.Code_Personal_Data == executor.Code_Personal_Data);
+                DataBaseConnection.dataBaseEntities.Personal_Data.Remove(personalDataExecutor); // Удаляем исполнителя
                 DataBaseConnection.dataBaseEntities.SaveChanges();
                 MessageBox.Show("Удаление прошло успешно", "Успешно", MessageBoxButton.OK, MessageBoxImage.Question);
             }
             FrameClass.frame.Navigate(new ExecutorsListPage());
+        }
+
+        private void clearFiltration_Click(object sender, RoutedEventArgs e)
+        {
+            surnameExecutorInput.Clear();
+        }
+
+        private void surnameExecutorInput_GotFocus(object sender, RoutedEventArgs e)
+        {
+            surnameExecutorHeader.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF7D8DF0"));
+        }
+
+        private void surnameExecutorInput_LostFocus(object sender, RoutedEventArgs e)
+        {
+            surnameExecutorHeader.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#DC818181"));
         }
     }
 }

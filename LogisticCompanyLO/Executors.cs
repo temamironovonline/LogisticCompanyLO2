@@ -17,6 +17,8 @@ namespace LogisticCompanyLO
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Executors()
         {
+            this.Drivers = new HashSet<Drivers>();
+            this.Orders = new HashSet<Orders>();
             this.Vehicles = new HashSet<Vehicles>();
         }
     
@@ -24,10 +26,15 @@ namespace LogisticCompanyLO
         public string Name_Executor { get; set; }
         public string Surname_Executor { get; set; }
         public string Midname_Executor { get; set; }
-        public string Telephone_Executor { get; set; }
-        public Nullable<int> Id_Ati { get; set; }
+        public Nullable<int> Code_Personal_Data { get; set; }
+        public string Boundaries_Work { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Drivers> Drivers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Orders> Orders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Vehicles> Vehicles { get; set; }
+        public virtual Personal_Data Personal_Data { get; set; }
     }
 }

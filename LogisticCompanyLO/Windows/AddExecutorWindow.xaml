@@ -6,56 +6,113 @@
         xmlns:local="clr-namespace:LogisticCompanyLO"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="CARAVELLA - Добавление исполнителя" Height="450" Width="800">
+        Title="Fregate Logistic - Добавление исполнителя" Height="650" Width="1400">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="0" Name="title" Text="ДОБАВЛЕНИЕ ИСПОЛНИТЕЛЯ" Grid.ColumnSpan="2" VerticalAlignment="Center" Style="{StaticResource headerText}"></TextBlock>
+        <TextBlock Margin="20" Grid.Row="0" Name="title" Text="ДОБАВЛЕНИЕ ИСПОЛНИТЕЛЯ" Grid.ColumnSpan="2" VerticalAlignment="Center" Style="{StaticResource headerText}" Foreground="#FF7D8DF0"></TextBlock>
 
-        <StackPanel Grid.Row="1" HorizontalAlignment="Left" Margin="5">
-            <StackPanel Margin="5">
-                <TextBlock Text="Фамилия" Style="{StaticResource mainText}"></TextBlock>
-                <TextBox Name="executorSurnameInput" Style="{StaticResource inputTextAddExecutor}"></TextBox>
+        <WrapPanel Grid.Row="1" Margin="20,0,0,0">
+            <StackPanel  HorizontalAlignment="Left" Margin="5,5,20,5">
+                <StackPanel Margin="5">
+                    <TextBlock Text="Фамилия" Style="{StaticResource mainTextAddForm}"></TextBlock>
+                    <TextBox Name="executorSurnameInput" Style="{StaticResource textBoxAddForm}" Width="150"></TextBox>
+                </StackPanel>
+
+                <StackPanel Margin="5,15,5,5">
+                    <TextBlock Text="Имя" Style="{StaticResource mainTextAddForm}"></TextBlock>
+                    <TextBox Name="executorNameInput" Style="{StaticResource textBoxAddForm}" Width="150"></TextBox>
+                </StackPanel>
+
+                <StackPanel Margin="5,15,5,5">
+                    <TextBlock Text="Отчество" Style="{StaticResource mainTextAddForm}"></TextBlock>
+                    <TextBox Name="executorMidnameInput" Style="{StaticResource textBoxAddForm}" Width="150"></TextBox>
+                </StackPanel>
+
+                <StackPanel Margin="5,15,5,5">
+                    <TextBlock Text="Код АТИ" Style="{StaticResource mainTextAddForm}"></TextBlock>
+                    <TextBox Name="executorIdAti" Style="{StaticResource textBoxAddForm}" Width="150" PreviewTextInput="executorIdAti_PreviewTextInput"></TextBox>
+                </StackPanel>
+
+                <StackPanel Margin="5,15,5,5">
+                    <TextBlock Text="Номер телефона" Style="{StaticResource mainTextAddForm}"></TextBlock>
+                    <xctk:MaskedTextBox Name="executorTelephoneNumberInput" Mask="+7 (000)-000-00-00" Style="{StaticResource textBoxAddForm}" Width="150"></xctk:MaskedTextBox>
+                </StackPanel>
+
+                <StackPanel Margin="5,15,5,5">
+                    <TextBlock Text="Вод. удостоверение" Style="{StaticResource mainTextAddForm}"></TextBlock>
+                    <xctk:MaskedTextBox Name="executorDriverLicenseInput" Mask="0000-000000" Style="{StaticResource textBoxAddForm}" Width="150"></xctk:MaskedTextBox>
+                </StackPanel>
+
+                <StackPanel Margin="5,15,5,5">
+                    <TextBlock Text="Дата выдачи" Style="{StaticResource mainTextAddForm}"></TextBlock>
+                    <StackPanel>
+                        <DatePicker Name="executorDriverLicenseDateIssued" Width="150" Margin="0,1.6,5,0" GotFocus="executorDriverLicenseDateIssued_GotFocus" LostFocus="executorDriverLicenseDateIssued_LostFocus"></DatePicker>
+                        <Line Name="underlineExecutorDriverLicenseDateIssed" X1="150" StrokeThickness="1" Stroke="#DC818181" Margin="0,0,0,0"></Line>
+                    </StackPanel>
+                    
+                </StackPanel>
+
             </StackPanel>
 
-            <StackPanel Margin="5">
-                <TextBlock Text="Имя" Style="{StaticResource mainText}"></TextBlock>
-                <TextBox Name="executorNameInput" Style="{StaticResource inputTextAddExecutor}"></TextBox>
-            </StackPanel>
+            <StackPanel Margin="5,5,20,5">
+                <StackPanel Margin="5">
+                    <TextBlock Text="Серия-номер паспорта" Style="{StaticResource mainTextAddForm}"></TextBlock>
+                    <xctk:MaskedTextBox Name="executorPassportNumbers" Mask="0000-000000" Style="{StaticResource textBoxAddForm}" Width="150"></xctk:MaskedTextBox>
+                </StackPanel>
 
-            <StackPanel Margin="5">
-                <TextBlock Text="Отчество" Style="{StaticResource mainText}"></TextBlock>
-                <TextBox Name="executorMidnameInput" Style="{StaticResource inputTextAddExecutor}"></TextBox>
-            </StackPanel>
+                <StackPanel Margin="5,15,5,5">
+                    <TextBlock Text="Код подразделения" Style="{StaticResource mainTextAddForm}"></TextBlock>
+                    <xctk:MaskedTextBox Name="executorPassportDivisionCode" Mask="000-000" Style="{StaticResource textBoxAddForm}" Width="150"></xctk:MaskedTextBox>
+                </StackPanel>
 
-            <StackPanel Margin="5">
-                <TextBlock Text="Код АТИ" Style="{StaticResource mainText}"></TextBlock>
-                <TextBox Name="executorIdAti" Style="{StaticResource inputTextAddExecutor}" PreviewTextInput="executorIdAti_PreviewTextInput"></TextBox>
-            </StackPanel>
+                <StackPanel Margin="5,15,5,5">
+                    <TextBlock Text="Дата выдачи" Style="{StaticResource mainTextAddForm}"></TextBlock>
+                    <StackPanel>
+                        <DatePicker Name="executorPassportDateIssued" Width="150" Margin="0,1.6,5,0" GotFocus="executorPassportDateIssued_GotFocus" LostFocus="executorPassportDateIssued_LostFocus"></DatePicker>
+                        <Line Name="underlineExecutorPassportDateIssed" X1="150" StrokeThickness="1" Stroke="#DC818181" Margin="0,0,0,0"></Line>
+                    </StackPanel>
+                    
+                </StackPanel>
 
-            <StackPanel Margin="5">
-                <TextBlock Text="Номер телефона" Style="{StaticResource mainText}"></TextBlock>
-                <xctk:MaskedTextBox Name="executorTelephoneNumberInput" Mask="+7 (000)-000-00-00" Style="{StaticResource inputTextAddExecutor}"></xctk:MaskedTextBox>
-            </StackPanel>
-        </StackPanel>
-        <Button Grid.Row="2" Grid.Column="1" Name="addVehicle" Content="Добавить автомобиль" Style="{StaticResource button}" Width="150" Height="35" Margin="0,0,10,0" HorizontalAlignment="Right" Click="addVehicle_Click"></Button>
+                <StackPanel Margin="5,15,5,5">
+                    <TextBlock Text="Кем выдан" Style="{StaticResource mainTextAddForm}"></TextBlock>
+                    <TextBox Name="executorPassportIssued" Height="87.7" Style="{StaticResource richTextBoxAddForm}" Width="150" TextWrapping="Wrap"></TextBox>
+                </StackPanel>
+                <StackPanel Margin="5,15,5,5">
+                    <TextBlock Text="Номер ИНН" Style="{StaticResource mainTextAddForm}"></TextBlock>
+                    <xctk:MaskedTextBox Name="executorTinNumberInput" Mask="000000000000" Style="{StaticResource textBoxAddForm}" Width="150"></xctk:MaskedTextBox>
+                </StackPanel>
 
-        <ListView Grid.Row="1" Grid.Column="1" BorderBrush="#FF6F97EE" VerticalAlignment="Stretch" Name="vehiclesList" ScrollViewer.CanContentScroll="False" MouseDoubleClick="vehiclesList_MouseDoubleClick" HorizontalContentAlignment="Stretch">
+                <StackPanel Margin="5,15,5,5">
+                    <TextBlock Text="Границы работы" Style="{StaticResource mainTextAddForm}"></TextBlock>
+                    <TextBox Name="executorBoundariesWorkInput" Style="{StaticResource textBoxAddForm}" Width="150"></TextBox>
+                </StackPanel>
+            </StackPanel>
+        </WrapPanel>
+
+        <Button Name="addVehicle" FontSize="30" Grid.Column="1" Grid.Row="2" Style="{StaticResource buttonsAddForm}" Click="addVehicle_Click" Margin="0,0,30,0" HorizontalAlignment="Right">
+            <TextBlock Text="+" Margin="0,0,0,5"></TextBlock>
+        </Button>
+        
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="Автомобили"  VerticalAlignment="Bottom" Margin="10,10,30,10" HorizontalAlignment="Right" Style="{StaticResource headerText}" Foreground="#FF7D8DF0"></TextBlock>
+
+        <ListView Name="vehiclesList" Grid.Row="1" Grid.Column="1" ScrollViewer.CanContentScroll="False" MouseDoubleClick="vehiclesList_MouseDoubleClick" ScrollViewer.VerticalScrollBarVisibility="Hidden">
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Name="deleteVehicle" Header="Удалить автомобиль" Click="deleteVehicle_Click"></MenuItem>
                 </ContextMenu>
             </ListView.ContextMenu>
-            
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel></StackPanel>
@@ -64,40 +121,50 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Margin="0,5,0,0">
-                        <TextBlock Style="{StaticResource importantText}" Margin="5,0,0,0">
-                            <TextBlock.Text>
-                                <MultiBinding StringFormat="{}{0} {1} {2}">
-                                    <Binding Path="Brand_Vehicle"/>
-                                    <Binding Path="Model_Vehicle"/>
-                                    <Binding Path="Number_Vehicle"/>
-                                </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
+                    <StackPanel Margin="2,10,0,0" Height="120">
+                        <WrapPanel>
+                            <TextBlock Style="{StaticResource listViewImportantText}" Margin="5,2.5,10,0" FontSize="14">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} {1}" TargetNullValue="Основная информация не указана">
+                                        <Binding Path="Brand_Vehicle" TargetNullValue="Марка не указана" FallbackValue="Марка не указана"/>
+                                        <Binding Path="Model_Vehicle" TargetNullValue="Модель не указана" FallbackValue="Модель не указана"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+
+                            <WrapPanel Margin="0,0,0,0">
+                                <Border Height="21" Width="60" BorderBrush="Black" BorderThickness="1" Background="White" CornerRadius="8,0,0,8">
+                                    <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                        <TextBlock Name="firstLetterNumber" Text="{Binding GetFirstLetterNumber}" Margin="0,0,1,0" FontSize="13" FontFamily="Google Sans Medium" VerticalAlignment="Bottom"></TextBlock>
+                                        <TextBlock Name="digitsNumber" Text="{Binding GetDigitsNumber}" FontSize="13" FontFamily="Google Sans Medium" VerticalAlignment="Bottom"></TextBlock>
+                                        <TextBlock Name="lastLettersNumber" Text="{Binding GetLastLettersNumber}" Margin="1,0,0,0" FontSize="13" FontFamily="Google Sans Medium" VerticalAlignment="Bottom"></TextBlock>
+                                    </WrapPanel>
+                                </Border>
+
+                                <Border Height="21" Width="30" BorderBrush="Black" BorderThickness="1" Background="White" CornerRadius="0,8,8,0">
+                                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                        <TextBlock Name="regionNumber" FontSize="10" Text="{Binding GetRegionNumber}" FontFamily="Google Sans Medium"></TextBlock>
+                                        <TextBlock FontSize="6" Text="RUS" HorizontalAlignment="Center" FontFamily="Google Sans Medium"></TextBlock>
+                                    </StackPanel>
+                                </Border>
+                            </WrapPanel>
+                        </WrapPanel>
 
                         <WrapPanel>
                             <StackPanel Margin="5">
-                                <TextBlock Style="{StaticResource importantText}">
-                                    <TextBlock.Text>
-                                        <MultiBinding StringFormat="{}Владелец: {0} {1} {2}">
-                                            <Binding Path="Executors.Surname_Executor"/>
-                                            <Binding Path="Executors.Name_Executor"/>
-                                            <Binding Path="Executors.Midname_Executor"/>
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-                                </TextBlock>
-                                <TextBlock Text="{Binding GetCategoryTrailer, StringFormat=Тип кузова: {0}, TargetNullValue=Тип кузова: не указано, FallbackValue=Тип кузова: не указано}" Style="{StaticResource mainText}"></TextBlock>
-                                <TextBlock Text="{Binding GetDownloadType, StringFormat=Тип загрузки: {0}, TargetNullValue=Тип загрузки: не указано, FallbackValue=Тип загрузки: не указано}" Style="{StaticResource mainText}"></TextBlock>
-                                <TextBlock Text="{Binding GetAdditionalParameter, StringFormat=Доп. параметр: {0}, TargetNullValue=Доп. параметр: не указано, FallbackValue=Доп. параметр: не указано}" Style="{StaticResource mainText}"></TextBlock>
+                                <TextBlock Margin="0,0,0,5" Text="{Binding StringFormat=Тип кузова: {0}, Path=GetCategoryTrailer, TargetNullValue=Тип кузова: не указано, FallbackValue=Тип кузова: не указано}" Style="{StaticResource listViewInformationText}"></TextBlock>
+                                <TextBlock Margin="0,0,0,5" Text="{Binding GetDownloadType, StringFormat=Тип загрузки: {0}, TargetNullValue=Тип загрузки: не указано, FallbackValue=Тип загрузки: не указано}" Style="{StaticResource listViewInformationText}"></TextBlock>
+                                <TextBlock Margin="0,0,0,5" Text="{Binding GetAdditionalParameter, StringFormat=Доп. параметр: {0}, TargetNullValue=Доп. параметр: не указано, FallbackValue=Доп. параметр: не указано}" Style="{StaticResource listViewInformationText}"></TextBlock>
                             </StackPanel>
-                            <StackPanel Margin="5">
+
+                            <StackPanel Margin="30,5,5,5">
                                 <WrapPanel>
-                                    <TextBlock Text="{Binding Tonnage_Vehicle, StringFormat=Тоннаж: {0}}" Style="{StaticResource importantText}"></TextBlock>
-                                    <TextBlock Text="{Binding Volume_Vehicle, StringFormat=Объем: {0}}" Margin="5,0,0,0" Style="{StaticResource importantText}"></TextBlock>
+                                    <TextBlock Margin="0,0,0,5" Text="{Binding Tonnage_Vehicle, StringFormat=Тоннаж: {0}}" Style="{StaticResource listViewImportantText}"></TextBlock>
+                                    <TextBlock Margin="5,0,0,5" Text="{Binding Volume_Vehicle, StringFormat=Объем: {0}}" Style="{StaticResource listViewImportantText}"></TextBlock>
                                 </WrapPanel>
-                                <TextBlock Text="{Binding Length_Vehicle, StringFormat=Длина: {0}}" Style="{StaticResource mainText}"></TextBlock>
-                                <TextBlock Text="{Binding Width_Vehicle, StringFormat=Ширина: {0}}" Style="{StaticResource mainText}"></TextBlock>
-                                <TextBlock Text="{Binding Height_Vehicle, StringFormat=Высота: {0}}" Style="{StaticResource mainText}"></TextBlock>
+                                <TextBlock Margin="0,0,0,5" Text="{Binding Length_Vehicle, StringFormat=Длина: {0}}" Style="{StaticResource listViewInformationText}"></TextBlock>
+                                <TextBlock Margin="0,0,0,5" Text="{Binding Width_Vehicle, StringFormat=Ширина: {0}}" Style="{StaticResource listViewInformationText}"></TextBlock>
+                                <TextBlock Margin="0,0,0,5" Text="{Binding Height_Vehicle, StringFormat=Высота: {0}}" Style="{StaticResource listViewInformationText}"></TextBlock>
                             </StackPanel>
                         </WrapPanel>
                     </StackPanel>
@@ -105,9 +172,56 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" Grid.RowSpan="2" VerticalAlignment="Bottom">
-            <Button Name="createExecutor" Content="Добавить" Click="createExecutor_Click" Width="150" Height="35" Margin="5" Style="{StaticResource button}"></Button>
-            <Button Name="deleteExecutor" Content="Удалить" Click="deleteExecutor_Click" Width="150" Height="35"  Margin="5" Visibility="Collapsed" Style="{StaticResource button}"></Button>
-        </StackPanel>
+        <Button Name="addDriver" Grid.Column="2" Grid.Row="2" FontSize="30" Style="{StaticResource buttonsAddForm}" Click="addDriver_Click" Margin="0,0,30,0" HorizontalAlignment="Right">
+            <TextBlock Text="+" Margin="0,0,0,5"></TextBlock>
+        </Button>
+
+        <TextBlock Grid.Row="0" Grid.Column="2" Text="Водители" VerticalAlignment="Bottom" Margin="10,10,30,10" HorizontalAlignment="Right" Style="{StaticResource headerText}" Foreground="#FF7D8DF0"></TextBlock>
+        
+        <ListView Name="driversList" Grid.Row="1" Grid.Column="2" BorderBrush="#FF6F97EE" VerticalAlignment="Stretch" ScrollViewer.CanContentScroll="False" ScrollViewer.VerticalScrollBarVisibility="Hidden" HorizontalContentAlignment="Stretch" MouseDoubleClick="driversList_MouseDoubleClick">
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Name="deleteDriver" Header="Удалить водителя" Click="deleteDriver_Click"></MenuItem>
+                </ContextMenu>
+            </ListView.ContextMenu>
+
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel></StackPanel>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="2,10,0,0">
+                        <TextBlock Style="{StaticResource listViewImportantText}" Margin="5,0,0,0" FontSize="14">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1} {2}">
+                                    <Binding Path="Surname_Driver"/>
+                                    <Binding Path="Name_Driver"/>
+                                    <Binding Path="Midname_Driver"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+
+                        <WrapPanel>
+                            <StackPanel Margin="5">
+                                <TextBlock Margin="0,0,0,5" Text="{Binding Telephone_Number_Driver, StringFormat=Телефон: {0}, TargetNullValue=Телефон: не указано, FallbackValue=Телефон водителя: не указано}" Style="{StaticResource listViewInformationText}"></TextBlock>
+                                <TextBlock Margin="0,0,0,5" Text="{Binding Id_Ati_Driver, StringFormat=Код АТИ: {0}, TargetNullValue=Код АТИ: не указано, FallbackValue=Код АТИ: не указано}" Style="{StaticResource listViewInformationText}"></TextBlock>
+                                <TextBlock Margin="0,0,0,5" Text="{Binding Boundaries_Work, StringFormat=Границы работы: {0}, TargetNullValue=Границы работы: не указано, FallbackValue=Границы работы: не указано}" Style="{StaticResource listViewInformationText}"></TextBlock>
+                            </StackPanel>
+                        </WrapPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
+        <Button Name="deleteExecutor" Grid.Row="2" Style="{StaticResource buttonsDeleteForm}"  Click="deleteExecutor_Click" Margin="20,15,15,15" Visibility="Collapsed" HorizontalAlignment="Left">
+            <Image Source="/Resources/bin2.png" Width="16"></Image>
+        </Button>
+
+        <Button Name="createExecutor" Grid.Row="2" Style="{StaticResource buttonsAddForm}" Click="createExecutor_Click" Margin="15,15,20,15" HorizontalAlignment="Right">
+            <Image Source="/Resources/confirm.png" Width="17"></Image>
+        </Button>
     </Grid>
 </Window>

@@ -28,7 +28,10 @@ namespace LogisticCompanyLO
         public virtual DbSet<Additionally_Parameters> Additionally_Parameters { get; set; }
         public virtual DbSet<Category_Trailer> Category_Trailer { get; set; }
         public virtual DbSet<Download_Types> Download_Types { get; set; }
+        public virtual DbSet<Drivers> Drivers { get; set; }
         public virtual DbSet<Executors> Executors { get; set; }
+        public virtual DbSet<Orders> Orders { get; set; }
+        public virtual DbSet<Personal_Data> Personal_Data { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Vehicles> Vehicles { get; set; }
     }

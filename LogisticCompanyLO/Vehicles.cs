@@ -14,6 +14,12 @@ namespace LogisticCompanyLO
     
     public partial class Vehicles
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Vehicles()
+        {
+            this.Orders = new HashSet<Orders>();
+        }
+    
         public int Code_Vehicle { get; set; }
         public Nullable<int> Code_Executor { get; set; }
         public Nullable<int> Code_Category { get; set; }
@@ -32,5 +38,7 @@ namespace LogisticCompanyLO
         public virtual Category_Trailer Category_Trailer { get; set; }
         public virtual Download_Types Download_Types { get; set; }
         public virtual Executors Executors { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Orders> Orders { get; set; }
     }
 }
